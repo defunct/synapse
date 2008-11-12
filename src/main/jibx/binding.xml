@@ -1,0 +1,8 @@
+<binding>
+    <mapping name="status" class="org.curlybraces.synapse.terms.Term">
+        <value name="id" field="id" deserializer="java.util.UUID.fromString"/>
+        <value name="date" field="date"/>
+        <value name="flag" field="flag"/>
+        <value name="word" field="word"/>
+    </mapping>
+</binding>

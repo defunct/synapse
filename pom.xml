@@ -15,66 +15,12 @@
         <url>http://blogometer.com/</url>
     </organization>
 
-    <repositories>
-        <repository>
-            <id>openqa.org</id>
-            <name>Openqa Release Repository</name>
-            <url>http://archiva.openqa.org/repository/releases</url>
-            <layout>default</layout>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-        </repository>
-        <repository>
-            <id>openqa.org</id>
-            <name>Openqa Snapshot Repository</name>
-            <url>http://archiva.openqa.org/repository/snapshots</url>
-            <layout>default</layout>
-            <snapshots>
-                <enabled>true</enabled>
-                <updatePolicy>daily</updatePolicy>
-                <checksumPolicy>ignore</checksumPolicy>
-            </snapshots>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-        </repository>
-    </repositories>
-
     <dependencies>
-        <dependency> 
-            <groupId>com.agtrz</groupId>
-            <artifactId>addendum</artifactId>
-            <version>0.9.0</version>
-        </dependency> 
-        <dependency> 
-            <groupId>com.agtrz</groupId>
-            <artifactId>waste</artifactId>
-            <version>0.9.0</version>
-        </dependency> 
         <dependency>
-            <groupId>net.homeip.yusuke</groupId>
-            <artifactId>twitter4j</artifactId>
-            <version>1.0.5</version>
-        </dependency>
-        <dependency> 
             <groupId>com.agtrz</groupId>
-            <artifactId>dovetail</artifactId>
-            <version>0.9.0</version>
-        </dependency> 
-        <dependency> 
-            <groupId>org.apache.lucene</groupId>
-            <artifactId>lucene-core</artifactId>
-            <version>2.4.0</version>
-        </dependency> 
-        <dependency> 
-            <groupId>org.directwebremoting</groupId>
-            <artifactId>dwr</artifactId>
-            <version>2.0.5</version>
-        </dependency> 
+            <artifactId>litany</artifactId>
+            <version>0.1</version>
+        </dependency>
         <dependency>
             <groupId>org.jibx</groupId>
             <artifactId>jibx-extras</artifactId>
@@ -92,11 +38,6 @@
             <artifactId>jibx-run</artifactId>
             <version>1.1.6a</version>
         </dependency>
-        <dependency> 
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.6</version>
-        </dependency> 
         <dependency>
             <groupId>com.agtrz</groupId>
             <artifactId>mix</artifactId>
@@ -104,24 +45,9 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>c3p0</groupId>
-            <artifactId>c3p0</artifactId>
-            <version>0.9.1.2</version>
-        </dependency>
-        <dependency>
             <groupId>commons-collections</groupId>
             <artifactId>commons-collections</artifactId>
             <version>3.2</version>
-        </dependency>
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-commons-annotations</artifactId>
-            <version>3.3.0.ga</version>
-        </dependency>
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-entitymanager</artifactId>
-            <version>3.3.2.GA</version>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -134,73 +60,52 @@
             <version>1.2.14</version>
         </dependency>
         <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>jstl</artifactId>
-            <version>1.2</version>
-        </dependency>
-        <dependency>
-            <groupId>net.sourceforge.stripes</groupId>
-            <artifactId>stripes</artifactId>
-            <version>1.5</version>
-        </dependency>
-        <dependency>
             <groupId>org.mortbay.jetty</groupId>
             <artifactId>jetty</artifactId>
-            <version>7.0.0pre2</version>
+            <version>7.0.0pre3</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.mortbay.jetty</groupId>
             <artifactId>jetty-util</artifactId>
-            <version>7.0.0pre2</version>
+            <version>7.0.0pre3</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.mortbay.jetty</groupId>
             <artifactId>jetty-jndi</artifactId>
-            <version>7.0.0pre2</version>
+            <version>7.0.0pre3</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.mortbay.jetty</groupId>
             <artifactId>jetty-wadi-session-manager</artifactId>
-            <version>7.0.0pre2</version>
+            <version>7.0.0pre3</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.mortbay.jetty</groupId>
             <artifactId>jetty-servlet</artifactId>
-            <version>7.0.0pre2</version>
+            <version>7.0.0pre3</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.mortbay.jetty</groupId>
             <artifactId>jetty-client</artifactId>
-            <version>7.0.0pre2</version>
+            <version>7.0.0pre3</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.mortbay.jetty</groupId>
             <artifactId>jetty-plus</artifactId>
-            <version>7.0.0pre2</version>
+            <version>7.0.0pre3</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.mortbay.jetty</groupId>
-            <artifactId>jetty</artifactId>
-            <version>7.0.0pre2</version>
+            <artifactId>jsp-2.1-jetty</artifactId>
+            <version>7.0.0pre3</version>
             <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.mortbay.jetty</groupId>
-            <artifactId>jsp-2.1</artifactId>
-            <version>7.0.0pre2</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>nekohtml</groupId>
-            <artifactId>nekohtml</artifactId>
-            <version>1.9.6.2</version>
         </dependency>
         <dependency>
             <groupId>com.google.code.guice</groupId>
@@ -208,67 +113,11 @@
             <version>1.0</version>
         </dependency>
         <dependency>
-            <groupId>com.agtrz</groupId>
-            <artifactId>litany</artifactId>
-            <version>0.1</version>
-        </dependency>
-        <dependency>
-            <groupId>xom</groupId>
-            <artifactId>xom</artifactId>
-            <version>1.1</version>
-        </dependency>
-        <dependency>
-            <groupId>javax.mail</groupId>
-            <artifactId>mail</artifactId>
-            <version>1.4</version>
-        </dependency>
-        <dependency>
-            <groupId>xml-resolver</groupId>
-            <artifactId>xml-resolver</artifactId>
-            <version>1.2</version>
-        </dependency>
-        <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
             <version>5.8</version>
             <classifier>jdk15</classifier>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>net.fckeditor</groupId>
-            <artifactId>java-core</artifactId>
-            <version>2.4-beta-1</version>
-        </dependency>
-        <dependency>
-            <groupId>stripersist</groupId>
-            <artifactId>stripersist</artifactId>
-            <version>1.0-a5</version>
-        </dependency>
-        <dependency>
-            <groupId>org.freemarker</groupId>
-            <artifactId>freemarker</artifactId>
-            <version>2.3.13</version>
-        </dependency>
-        <dependency>
-            <groupId>net.sourceforge.htmlunit</groupId>
-            <artifactId>htmlunit</artifactId>
-            <version>1.14</version>
-        </dependency>
-        <dependency>
-            <groupId>org.openqa.selenium.client-drivers</groupId>
-            <artifactId>selenium-java-client-driver</artifactId>
-            <version>1.0-beta-1</version>
-            <scope>test</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>javax.servlet</groupId>
-                    <artifactId>servlet-api</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.openqa.selenium.server</groupId>
-                    <artifactId>selenium-server</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
     </dependencies>
 
@@ -314,21 +163,6 @@
                   <target>1.5</target>
                 </configuration>
              </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>selenium-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <phase>process-test-classes</phase>
-                        <goals>
-                            <goal>start-server</goal>
-                        </goals>
-                        <configuration>
-                            <background>true</background>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
             <plugin>
                  <groupId>org.apache.maven.plugins</groupId>
                  <artifactId>maven-surefire-plugin</artifactId>
