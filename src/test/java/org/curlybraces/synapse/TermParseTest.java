@@ -1,17 +1,16 @@
 package org.curlybraces.synapse;
 
+import static org.testng.Assert.assertEquals;
+
 import java.io.ByteArrayOutputStream;
 import java.io.StringReader;
 import java.util.Date;
-import java.util.UUID;
 
-import org.curlybraces.synapse.terms.Term;
 import org.jibx.runtime.BindingDirectory;
 import org.jibx.runtime.IBindingFactory;
 import org.jibx.runtime.IMarshallingContext;
 import org.jibx.runtime.IUnmarshallingContext;
 import org.testng.annotations.Test;
-import static org.testng.Assert.assertEquals;
 
 public class TermParseTest
 {
@@ -27,15 +26,6 @@ public class TermParseTest
             "<word>Obama</word>" +
         "</status>";
 
-    @Test public void parse()
-    {
-        Term term = new Term(UUID.fromString(ID), DATE, Term.KEYWORD, "Obama");
-        assertEquals(term.getId().toString(), ID);
-        assertEquals(term.getDate(), DATE);
-        assertEquals(term.getFlag(), Term.KEYWORD);
-        assertEquals(term.getWord(), "Obama");
-    }
-    
     @Test public void setters()
     {
         Term term = new Term();
@@ -53,7 +43,14 @@ public class TermParseTest
     {
         IBindingFactory bfact = BindingDirectory.getFactory(Term.class);
         IMarshallingContext m = bfact.createMarshallingContext();
-        Term term = new Term(UUID.fromString(ID), DATE, Term.KEYWORD, "Obama");
+        
+        Term term = new Term();
+
+        term.setId(ID);
+        term.setDate(DATE);
+        term.setFlag(Term.KEYWORD);
+        term.setWord("Obama");
+
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         m.marshalDocument(term, "UTF-8", null, out);
         assertEquals(out.toString("UTF-8"), XML);

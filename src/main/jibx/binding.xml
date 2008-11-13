@@ -1,8 +1,29 @@
 <binding>
-    <mapping name="status" class="org.curlybraces.synapse.terms.Term">
+	<mapping name="synapse" class="org.curlybraces.synapse.Synapse">
+		<collection field="commands">
+			<structure type="org.curlybraces.synapse.Echo"/>
+			<structure type="org.curlybraces.synapse.Update"/>
+		</collection>
+	</mapping>
+    <mapping name="status" class="org.curlybraces.synapse.Term">
         <value name="id" field="id" deserializer="java.util.UUID.fromString"/>
         <value name="date" field="date"/>
         <value name="flag" field="flag"/>
         <value name="word" field="word"/>
+    </mapping>
+    <mapping name="missive" class="org.curlybraces.synapse.Missive">
+        <value name="id" field="id" deserializer="java.util.UUID.fromString"/>
+        <value name="date" field="date"/>
+        <value name="personId" field="personId" deserializer="java.util.UUID.fromString"/>
+        <value name="message" field="message"/>
+    </mapping>
+    <mapping name="echo" class="org.curlybraces.synapse.Echo">
+        <value name="message" field="message"/>
+    </mapping>
+    <mapping name="update" class="org.curlybraces.synapse.Update">
+        <structure field="missive" type="org.curlybraces.synapse.Missive"/>
+    </mapping>
+    <mapping name="verification" class="org.curlybraces.synapse.Verification">
+    	<value name="message" field="message"/>
     </mapping>
 </binding>
