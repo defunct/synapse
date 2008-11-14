@@ -3,9 +3,7 @@ package org.curlybraces.synapse;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 import com.google.inject.Inject;
@@ -18,31 +16,35 @@ public class Node
 
     private final ArchiveManager archiveManager;
 
-    private final Map<UUID, Router<Term>> mapOfSearchRouters;
-
-    private final UUID rootSearchRouterId;
-
     private final List<SynapseListener> listOfListeners;
+    
+    private final Network<UUID> messageNetwork;
+    
+    private Locator locator;
 
     @Inject
     public Node(SiloManager siloManager, ArchiveManager archiveManager)
     {
-        Route route = new Route(UUID.randomUUID(), true);
-        Router<String> rootSearchRouter = new Router<String>(UUID.randomUUID(),
-                "", route);
-        Map<UUID, Router<Term>> mapOfSearchRouters = new HashMap<UUID, Router<Term>>();
-
         this.id = UUID.randomUUID();
         this.siloManager = siloManager;
         this.archiveManager = archiveManager;
-        this.rootSearchRouterId = rootSearchRouter.getId();
-        this.mapOfSearchRouters = mapOfSearchRouters;
+        this.messageNetwork = new Network<UUID>(UUID.randomUUID(), new UUID(0L, 0L));
         this.listOfListeners = new ArrayList<SynapseListener>();
     }
 
     public UUID getId()
     {
         return id;
+    }
+    
+    public void setLocator(Locator locator)
+    {
+        this.locator = locator;
+    }
+    
+    public Locator getLocator()
+    {
+        return locator;
     }
 
     public SiloManager getSiloManager()
@@ -54,10 +56,10 @@ public class Node
     {
         return archiveManager;
     }
-
-    public Router<Term> getSearchRouter(UUID searchRouterId)
+    
+    public Network<UUID> getMessageNetwork()
     {
-        return mapOfSearchRouters.get(searchRouterId);
+        return messageNetwork;
     }
 
     /**
@@ -70,11 +72,6 @@ public class Node
     public Verification verify(Synapse synapse)
     {
         return new Verification(new NodeExecutor(this, synapse), "OK");
-    }
-
-    public UUID getRootSearchRouterId()
-    {
-        return rootSearchRouterId;
     }
 
     /**

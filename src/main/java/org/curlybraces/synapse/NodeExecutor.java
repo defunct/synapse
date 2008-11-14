@@ -14,9 +14,6 @@ public class NodeExecutor implements Executor
 
     public void execute()
     {
-        for (Command command : synapse.commands())
-        {
-            command.execute(node);
-        }
+        synapse.execute(node);
     }
 }

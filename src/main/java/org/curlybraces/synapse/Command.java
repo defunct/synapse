@@ -60,5 +60,5 @@ public abstract class Command
     {
     }
 
-    public abstract void execute(Node node);
+    public abstract void execute(Node node, Synapse synapse);
 }

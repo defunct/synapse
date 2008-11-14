@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.agtrz</groupId>
     <artifactId>synapse</artifactId>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
     <version>beta-1</version>
     <name>synapse</name>
     <description>My first 3rd party Twitter application.</description>
