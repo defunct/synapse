@@ -48,4 +48,25 @@ public class Locator
 
         return new Result(connection.getResponseCode(), verification);
     }
+    
+    @Override
+    public boolean equals(Object object)
+    {
+        if (object instanceof Locator)
+        {
+            Locator locator = (Locator) object;
+            return host.equals(locator.host)
+                && port == locator.port;
+        }
+        return false;
+    }
+    
+    @Override
+    public int hashCode()
+    {
+        int hash = 1;
+        hash = hash * 37 + host.hashCode();
+        hash = hash * 37 + port;
+        return hash;
+    }
 }
