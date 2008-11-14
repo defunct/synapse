@@ -10,18 +10,26 @@ import org.jibx.runtime.JiBXException;
 public class Route
 {
     private final UUID id;
+    
+    private final boolean leaf;
 
     private final List<Locator> listOfLocators;
     
-    public Route(UUID id)
+    public Route(UUID id, boolean leaf)
     {
         this.id = id;
+        this.leaf = leaf;
         this.listOfLocators = new ArrayList<Locator>();
     }
     
     public UUID getId()
     {
         return id;
+    }
+    
+    public boolean isLeaf()
+    {
+        return leaf;
     }
     
     public void add(Locator locator)

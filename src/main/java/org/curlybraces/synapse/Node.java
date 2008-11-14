@@ -27,7 +27,7 @@ public class Node
     @Inject
     public Node(SiloManager siloManager, ArchiveManager archiveManager)
     {
-        Route route = new Route(UUID.randomUUID());
+        Route route = new Route(UUID.randomUUID(), true);
         Router<String> rootSearchRouter = new Router<String>(UUID.randomUUID(),
                 "", route);
         Map<UUID, Router<Term>> mapOfSearchRouters = new HashMap<UUID, Router<Term>>();
