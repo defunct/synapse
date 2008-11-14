@@ -1,6 +1,6 @@
 package org.curlybraces.synapse;
 
-public class UpdateListener
+public class SynapseListener
 {
     public void update(Missive missive)
     {

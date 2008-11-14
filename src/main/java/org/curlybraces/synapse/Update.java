@@ -21,6 +21,9 @@ public class Update extends Command
     {
         Archive archive = node.getArchiveManager().get(missive.getPersonId());
         archive.add(missive);
-        node.getUpdateListener().update(missive);
+        for (SynapseListener listener : node.listeners())
+        {
+            listener.update(missive);
+        }
     }
 }

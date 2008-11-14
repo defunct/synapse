@@ -1,6 +1,10 @@
 package org.curlybraces.synapse;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -18,7 +22,7 @@ public class Node
 
     private final UUID rootSearchRouterId;
 
-    private UpdateListener updateListener;
+    private final List<SynapseListener> listOfListeners;
 
     @Inject
     public Node(SiloManager siloManager, ArchiveManager archiveManager)
@@ -31,9 +35,9 @@ public class Node
         this.id = UUID.randomUUID();
         this.siloManager = siloManager;
         this.archiveManager = archiveManager;
-        this.updateListener = new UpdateListener();
         this.rootSearchRouterId = rootSearchRouter.getId();
         this.mapOfSearchRouters = mapOfSearchRouters;
+        this.listOfListeners = new ArrayList<SynapseListener>();
     }
 
     public UUID getId()
@@ -73,13 +77,39 @@ public class Node
         return rootSearchRouterId;
     }
 
-    public void setUpdateListener(UpdateListener updateListener)
+    /**
+     * Add a synapse listener to the node.
+     * 
+     * @param listener
+     *            A synapse listener.
+     */
+    public void addListener(SynapseListener listener)
     {
-        this.updateListener = updateListener;
+        listOfListeners.add(listener);
     }
 
-    public UpdateListener getUpdateListener()
+    /**
+     * Remove a synapse listener from the node. A synapse listener is identified
+     * by its object identity.
+     * 
+     * @param listener
+     *            A synapse listener to remove.
+     */
+    public void removeListener(SynapseListener listener)
     {
-        return updateListener;
+        while (listOfListeners.remove(listener))
+        {
+        }
+    }
+
+    /**
+     * Return an unmodifiable collection of the listeners listening to events on
+     * this node.
+     * 
+     * @return An unmodifiable collection of listeners.
+     */
+    public Collection<SynapseListener> listeners()
+    {
+        return Collections.unmodifiableCollection(listOfListeners);
     }
 }
