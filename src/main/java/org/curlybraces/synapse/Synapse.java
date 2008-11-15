@@ -26,9 +26,9 @@ public class Synapse
     {
     }
     
-    public Synapse(Command command)
+    public Synapse(Command... commands)
     {
-        shift(command);
+        shift(commands);
         this.id = UUID.randomUUID();
     }
     
@@ -37,9 +37,20 @@ public class Synapse
         return id;
     }
     
-    public void shift(Command command)
+    public void shift(Command... inserts)
     {
-        commands.add(command);
+        for (int i = 0; i < inserts.length; i++)
+        {
+            commands.addFirst(inserts[i]);
+        }
+    }
+    
+    public void push(Command... appends)
+    {
+        for (int i = 0; i < appends.length; i++)
+        {
+            commands.addLast(appends[i]);
+        }
     }
     
     public void execute(Node node)
