@@ -1,8 +1,10 @@
-<binding>
+<binding> 
 	<mapping name="synapse" class="org.curlybraces.synapse.Synapse">
 		<collection field="commands">
+            <structure type="org.curlybraces.synapse.RouteMessageSynapse"/>
 			<structure type="org.curlybraces.synapse.Echo"/>
 			<structure type="org.curlybraces.synapse.Update"/>
+			<structure type="org.curlybraces.synapse.InjectMessage"/>
 		</collection>
 	</mapping>
     <mapping name="status" class="org.curlybraces.synapse.Term">
@@ -22,6 +24,12 @@
     </mapping>
     <mapping name="update" class="org.curlybraces.synapse.Update">
         <structure field="missive" type="org.curlybraces.synapse.Missive"/>
+    </mapping>
+    <mapping name="routeroute" class="org.curlybraces.synapse.RouteMessageSynapse">
+        <value name="messageId" field="messageId" deserializer="java.util.UUID.fromString"/>
+    </mapping>
+    <mapping name="inject-message" class="org.curlybraces.synapse.InjectMessage">
+        <structure field="message" type="org.curlybraces.synapse.Missive"/>
     </mapping>
     <mapping name="verification" class="org.curlybraces.synapse.Verification">
     	<value name="message" field="message"/>

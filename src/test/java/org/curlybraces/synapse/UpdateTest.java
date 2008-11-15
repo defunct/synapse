@@ -1,6 +1,7 @@
 package org.curlybraces.synapse;
 
 import java.util.Date;
+import java.util.concurrent.LinkedBlockingQueue;
 
 import org.mortbay.jetty.Connector;
 import org.mortbay.jetty.Server;
@@ -19,6 +20,8 @@ public class UpdateTest
     private final static Date DATE = new Date(1226453280480L);
 
     private final Server server = new Server();
+    
+    private Node node;
 
     @BeforeMethod public void startJetty() throws Exception
     {
@@ -29,7 +32,9 @@ public class UpdateTest
         connector.setPort(8888);
         server.setConnectors(new Connector[] { connector });
         Injector injector = Guice.createInjector(new ServletModule());
-        Node node = injector.getInstance(Node.class);
+        node = injector.getInstance(Node.class);
+
+        node.setLocator(new Locator("localhost", 8888));
         
         server.addHandler(new SynapseJettyHandler(node));
         server.start();
@@ -37,7 +42,7 @@ public class UpdateTest
     
     @Test public void update() throws Exception
     {
-        Locator locator = new Locator("localhost", 8888);
+//        Locator locator = new Locator("localhost", 8888);
         
         Missive missive = new Missive();
         
@@ -46,7 +51,21 @@ public class UpdateTest
         missive.setPersonId(ID);
         missive.setMessage("This is a test.");
         
-        locator.sendCommand(new Synapse(new Update(missive)));
+        
+        final LinkedBlockingQueue<String> queue = new LinkedBlockingQueue<String>();
+        
+        node.addListener(new SynapseListener()
+        {
+            @Override
+            public void update(Missive missive)
+            {
+                queue.add("");
+            }
+        });
+
+    //    locator.sendCommand(new Synapse(new Update(missive)));
+        
+        Thread.sleep(5000);
     }
     
     @AfterMethod public void stopJetty() throws Exception

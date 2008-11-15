@@ -7,9 +7,7 @@ import java.util.UUID;
 
 /**
  * An instruction performed by the network and the history of its execution.
- * <ul>
- * <li></li>
- * </ul>
+
  * @author Alan Gutierrez
  */
 public class Synapse
@@ -28,7 +26,7 @@ public class Synapse
     
     public Synapse(Command... commands)
     {
-        shift(commands);
+        push(commands);
         this.id = UUID.randomUUID();
     }
     

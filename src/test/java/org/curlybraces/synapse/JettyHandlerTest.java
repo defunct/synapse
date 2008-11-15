@@ -42,6 +42,8 @@ public class JettyHandlerTest
         Locator locator = new Locator("localhost", 8888);
         Synapse synapse = new Synapse(new Echo("Hello, World!"));
         locator.sendCommand(synapse);
+        
+        Thread.sleep(2000);
     }
     
     public void update() throws Exception

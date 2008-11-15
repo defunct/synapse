@@ -34,6 +34,8 @@ public class ServletTest
         Locator locator = new Locator("localhost", 8888);
         Synapse synapse = new Synapse(new Echo("Hello, World!"));
         locator.sendCommand(synapse);
+        
+        Thread.sleep(2000);
     }
     
     @AfterMethod public void stopJetty() throws Exception

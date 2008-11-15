@@ -3,6 +3,7 @@ package org.curlybraces.synapse;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 
 import org.jibx.runtime.BindingDirectory;
@@ -23,7 +24,27 @@ public class Locator
         this.port = port;
     }
 
-    public Result sendCommand(Synapse synapse) throws IOException, JiBXException
+    public Result sendCommand(Synapse synapse)
+    {
+        try
+        {
+            return trySendCommand(synapse);
+        }
+        catch (MalformedURLException e)
+        {
+            throw new RuntimeException(e);
+        }
+        catch (IOException e)
+        {
+            throw new RuntimeException(e);
+        }
+        catch (JiBXException e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
+    
+    private Result trySendCommand(Synapse synapse) throws MalformedURLException, IOException, JiBXException
     {
         URL url = new URL("http", host, port, "/synapse");
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();

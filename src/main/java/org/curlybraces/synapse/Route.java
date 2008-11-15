@@ -1,11 +1,8 @@
 package org.curlybraces.synapse;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-
-import org.jibx.runtime.JiBXException;
 
 public class Route
 {
@@ -40,7 +37,7 @@ public class Route
         }
     }
     
-    public Result sendCommand(Synapse synapse) throws IOException, JiBXException
+    public Result sendCommand(Synapse synapse)
     {
         int size = listOfLocators.size();
         switch (size)

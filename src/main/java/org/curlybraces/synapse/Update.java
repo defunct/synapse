@@ -38,9 +38,8 @@ public class Update extends Command
         {
             archive.add(missive);
         }
-        Network<UUID> messages = node.getMessageNetwork();
-        Router<UUID> router = messages.get(messages.getRootId());
-        Route route = router.get(missive.getId());
-        route.getClass();   // Left off here.
+        Synapse inject = new Synapse(new RouteMessageSynapse(missive.getId()),
+                                     new InjectMessage(missive));
+        node.getLocator().sendCommand(inject);
     }
 }

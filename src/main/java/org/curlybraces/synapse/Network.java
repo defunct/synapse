@@ -13,7 +13,7 @@ public class Network<K extends Comparable<K>>
     public Network(UUID rootId, K min)
     {
         Route route = new Route(UUID.randomUUID(), true);
-        Router<K> root = new Router<K>(UUID.randomUUID(), min, route);
+        Router<K> root = new Router<K>(rootId, min, route);
         
         this.rootId = rootId;
         this.mapOfRouters = new HashMap<UUID, Router<K>>();

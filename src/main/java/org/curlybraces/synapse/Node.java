@@ -28,7 +28,7 @@ public class Node
         this.id = UUID.randomUUID();
         this.siloManager = siloManager;
         this.archiveManager = archiveManager;
-        this.messageNetwork = new Network<UUID>(UUID.randomUUID(), new UUID(0L, 0L));
+        this.messageNetwork = new Network<UUID>(UUID.randomUUID(), new UUID(0L, 0L)); 
         this.listOfListeners = new ArrayList<SynapseListener>();
     }
 
@@ -40,6 +40,7 @@ public class Node
     public void setLocator(Locator locator)
     {
         this.locator = locator;
+        getMessageNetwork().get(getMessageNetwork().getRootId()).get(new UUID(0L, 0L)).add(locator);
     }
     
     public Locator getLocator()
