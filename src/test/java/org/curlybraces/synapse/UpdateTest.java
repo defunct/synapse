@@ -1,11 +1,14 @@
 package org.curlybraces.synapse;
 
+import static org.testng.Assert.assertEquals;
+
+import java.net.URL;
 import java.util.Date;
 import java.util.concurrent.LinkedBlockingQueue;
 
 import org.mortbay.jetty.Connector;
 import org.mortbay.jetty.Server;
-import org.mortbay.jetty.bio.SocketConnector;
+import org.mortbay.jetty.nio.SelectChannelConnector;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -25,7 +28,7 @@ public class UpdateTest
 
     @BeforeMethod public void startJetty() throws Exception
     {
-        SocketConnector connector = new SocketConnector();
+        SelectChannelConnector connector = new SelectChannelConnector();
         // Set some timeout options to make debugging easier.
         connector.setMaxIdleTime(1000 * 60 * 60);
         connector.setSoLingerTime(-1);
@@ -34,7 +37,8 @@ public class UpdateTest
         Injector injector = Guice.createInjector(new ServletModule());
         node = injector.getInstance(Node.class);
 
-        node.setLocator(new Locator("localhost", 8888));
+        node.setURL(new URL("http", "localhost", 8888, "/synapse"));
+        node.start();
         
         server.addHandler(new SynapseJettyHandler(node));
         server.start();
@@ -42,15 +46,12 @@ public class UpdateTest
     
     @Test public void update() throws Exception
     {
-//        Locator locator = new Locator("localhost", 8888);
-        
         Missive missive = new Missive();
         
         missive.setId(ID);
         missive.setDate(DATE);
         missive.setPersonId(ID);
         missive.setMessage("This is a test.");
-        
         
         final LinkedBlockingQueue<String> queue = new LinkedBlockingQueue<String>();
         
@@ -59,18 +60,28 @@ public class UpdateTest
             @Override
             public void update(Missive missive)
             {
-                queue.add("");
+                try
+                {
+                    queue.put("done");
+                }
+                catch (InterruptedException e)
+                {
+                }
             }
         });
 
-    //    locator.sendCommand(new Synapse(new Update(missive)));
+        node.sendCommand(node.getURL(), new Synapse(new Update(missive)));
         
-        Thread.sleep(5000);
+        String done = queue.take();
+        assertEquals(done, "done");
     }
     
     @AfterMethod public void stopJetty() throws Exception
     {
         server.stop();
+        node.stop();
+
         server.join();
+        node.join();
     }
 }

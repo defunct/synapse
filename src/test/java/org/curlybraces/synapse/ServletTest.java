@@ -1,5 +1,7 @@
 package org.curlybraces.synapse;
 
+import java.net.URL;
+
 import org.mortbay.jetty.Connector;
 import org.mortbay.jetty.Server;
 import org.mortbay.jetty.bio.SocketConnector;
@@ -31,9 +33,10 @@ public class ServletTest
     
     @Test public void test() throws Exception 
     {
-        Locator locator = new Locator("localhost", 8888);
+        URL url = new URL("http", "localhost", 8888, "/synapse");
         Synapse synapse = new Synapse(new Echo("Hello, World!"));
-        locator.sendCommand(synapse);
+
+        new Envelope(url, synapse).send();
         
         Thread.sleep(2000);
     }

@@ -19,12 +19,12 @@ public class TermParseTest
     private final static Date DATE = new Date(1226453280480L);
     
     private final static String XML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
-        "<status>" +
+        "<term>" +
             "<id>7b2fb945-c913-48aa-ad25-346e27c2064b</id>" +
             "<date>2008-11-12T01:28:00.48Z</date>" +
             "<flag>1</flag>" +
             "<word>Obama</word>" +
-        "</status>";
+        "</term>";
 
     @Test public void setters()
     {

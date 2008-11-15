@@ -29,17 +29,6 @@ public class Envelope
         this.synapse = synapse;
     }
     
-    public Envelope()
-    {
-        this.url = null;
-        this.synapse = null;
-    }
-    
-    public boolean isTerminal() 
-    {
-        return url == null && synapse == null;
-    }
-    
     public Result send()
     {
         try

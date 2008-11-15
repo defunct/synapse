@@ -34,7 +34,7 @@ public class Node
 
     private final LinkedList<UUID> calledback;
 
-    private final LinkedBlockingQueue<Envelope> envelopes;
+    private final LinkedBlockingQueue<Task> envelopes;
 
     private Thread mailman;
 
@@ -46,12 +46,11 @@ public class Node
         this.id = UUID.randomUUID();
         this.siloManager = siloManager;
         this.archiveManager = archiveManager;
-        this.messageNetwork = new Network<UUID>(UUID.randomUUID(), new UUID(0L,
-                0L));
+        this.messageNetwork = new Network<UUID>(UUID.randomUUID(), new UUID(0L, 0L));
         this.listOfListeners = new ArrayList<SynapseListener>();
         this.callbacks = new HashMap<UUID, Runnable>();
         this.calledback = new LinkedList<UUID>();
-        this.envelopes = new LinkedBlockingQueue<Envelope>();
+        this.envelopes = new LinkedBlockingQueue<Task>();
     }
 
     public void start()
@@ -76,7 +75,7 @@ public class Node
     {
         try
         {
-            envelopes.put(new Envelope());
+            envelopes.put(new TerminalTask());
         }
         catch (InterruptedException e)
         {
@@ -193,7 +192,7 @@ public class Node
     {
         try
         {
-            envelopes.put(new Envelope(url, synapse));
+            envelopes.put(new EnvelopeSendTask(new Envelope(url, synapse)));
         }
         catch (InterruptedException e)
         {
@@ -204,12 +203,12 @@ public class Node
     {
         try
         {
-            Envelope envelope = envelopes.take();
-            if (envelope.isTerminal())
+            Task task = envelopes.take();
+            if (task.isTerminal())
             {
                 return false;
             }
-            envelope.send();
+            task.perform();
         }
         catch (InterruptedException e)
         {
