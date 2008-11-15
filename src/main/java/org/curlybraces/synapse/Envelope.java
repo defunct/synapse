@@ -1,5 +1,6 @@
 package org.curlybraces.synapse;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -11,24 +12,39 @@ import org.jibx.runtime.IBindingFactory;
 import org.jibx.runtime.IMarshallingContext;
 import org.jibx.runtime.IUnmarshallingContext;
 import org.jibx.runtime.JiBXException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-public class Locator
+public class Envelope
 {
-    private final String host;
+    private final Logger logger = LoggerFactory.getLogger(Envelope.class);
     
-    private final int port;
+    private final URL url;
     
-    public Locator(String host, int port)
+    private final Synapse synapse;
+    
+    public Envelope(URL url, Synapse synapse)
     {
-        this.host = host;
-        this.port = port;
+        this.url = url;
+        this.synapse = synapse;
     }
-
-    public Result sendCommand(Synapse synapse)
+    
+    public Envelope()
+    {
+        this.url = null;
+        this.synapse = null;
+    }
+    
+    public boolean isTerminal() 
+    {
+        return url == null && synapse == null;
+    }
+    
+    public Result send()
     {
         try
         {
-            return trySendCommand(synapse);
+            return trySend();
         }
         catch (MalformedURLException e)
         {
@@ -44,50 +60,41 @@ public class Locator
         }
     }
     
-    private Result trySendCommand(Synapse synapse) throws MalformedURLException, IOException, JiBXException
+    private Result trySend() throws MalformedURLException, IOException, JiBXException
     {
-        URL url = new URL("http", host, port, "/synapse");
+        logger.debug("Sending synapse to {}.", url);
+        
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setDoOutput(true);
-        connection.setRequestMethod("POST");
         connection.setRequestProperty("Content-Type", "text/xml;charset=utf-8");
 
         IBindingFactory synapses = BindingDirectory.getFactory(Synapse.class);
         IMarshallingContext m = synapses.createMarshallingContext();
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
 
-        m.marshalDocument(synapse, "UTF-8", null, connection.getOutputStream());
+        m.marshalDocument(synapse, "UTF-8", null, out);
+        
+        byte[] bytes = out.toByteArray();
+        
+        connection.setRequestProperty("Content-Length", Integer.toString(bytes.length));
 
+        connection.getOutputStream().write(bytes);
+        connection.getOutputStream().flush();
+        
         Verification verification = null;
-        InputStream in = connection.getInputStream();
+        connection.connect();
         if (connection.getResponseCode() == 200)
         {
             IBindingFactory verifications = BindingDirectory.getFactory(Verification.class);
             
             IUnmarshallingContext u = verifications.createUnmarshallingContext();
+
+            InputStream in = connection.getInputStream();
             verification = (Verification) u.unmarshalDocument(in, "UTF-8");
         }
+        
+        logger.debug("Sent synapse to {} response {}", url, connection.getResponseCode());
 
         return new Result(connection.getResponseCode(), verification);
-    }
-    
-    @Override
-    public boolean equals(Object object)
-    {
-        if (object instanceof Locator)
-        {
-            Locator locator = (Locator) object;
-            return host.equals(locator.host)
-                && port == locator.port;
-        }
-        return false;
-    }
-    
-    @Override
-    public int hashCode()
-    {
-        int hash = 1;
-        hash = hash * 37 + host.hashCode();
-        hash = hash * 37 + port;
-        return hash;
     }
 }

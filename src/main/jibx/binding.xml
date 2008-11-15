@@ -5,9 +5,11 @@
 			<structure type="org.curlybraces.synapse.Echo"/>
 			<structure type="org.curlybraces.synapse.Update"/>
 			<structure type="org.curlybraces.synapse.InjectMessage"/>
+			<structure type="org.curlybraces.synapse.Callback"/>
+			<structure type="org.curlybraces.synapse.ExecuteCallback"/>
 		</collection>
 	</mapping>
-    <mapping name="status" class="org.curlybraces.synapse.Term">
+    <mapping name="term" class="org.curlybraces.synapse.Term">
         <value name="id" field="id" deserializer="java.util.UUID.fromString"/>
         <value name="date" field="date"/>
         <value name="flag" field="flag"/>
@@ -30,6 +32,13 @@
     </mapping>
     <mapping name="inject-message" class="org.curlybraces.synapse.InjectMessage">
         <structure field="message" type="org.curlybraces.synapse.Missive"/>
+    </mapping>
+    <mapping name="callback" class="org.curlybraces.synapse.Callback">
+        <value name="url" field="url" />
+        <!--deserializer="org.curlybraces.synapse.JiBX.newURL"/> -->
+    </mapping>
+    <mapping name="execute-callback" class="org.curlybraces.synapse.ExecuteCallback">
+        <value name="callback-id" field="callbackId" deserializer="java.util.UUID.fromString"/>
     </mapping>
     <mapping name="verification" class="org.curlybraces.synapse.Verification">
     	<value name="message" field="message"/>

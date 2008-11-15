@@ -21,6 +21,20 @@ public abstract class Command
         this.id = id;
         this.date = date;
     }
+
+    /**
+     * Return true if this command is the culmination of series of commands,
+     * return false if it is a step toward resolving a command. When a terminal
+     * command is reached, the {@link Synapse#execute(Node)} method will begin
+     * the next series of execution by sending the command to the currently
+     * active node.
+     * 
+     * @return True if this is a terminal command.
+     */
+    public boolean isTerminal()
+    {
+        return true;
+    }
     
     public UUID getId()
     {

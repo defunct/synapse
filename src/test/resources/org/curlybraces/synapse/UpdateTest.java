@@ -1,5 +1,7 @@
 package org.curlybraces.synapse;
 
+import static org.testng.Assert.assertEquals;
+
 import java.util.Date;
 import java.util.concurrent.LinkedBlockingQueue;
 
@@ -30,6 +32,7 @@ public class UpdateTest
         connector.setMaxIdleTime(1000 * 60 * 60);
         connector.setSoLingerTime(-1);
         connector.setPort(8888);
+        connector.setAcceptors(8);
         server.setConnectors(new Connector[] { connector });
         Injector injector = Guice.createInjector(new ServletModule());
         node = injector.getInstance(Node.class);
@@ -42,7 +45,8 @@ public class UpdateTest
     
     @Test public void update() throws Exception
     {
-//        Locator locator = new Locator("localhost", 8888);
+        Thread.sleep(2000);
+        Locator locator = new Locator("localhost", 8888);
         
         Missive missive = new Missive();
         
@@ -59,13 +63,20 @@ public class UpdateTest
             @Override
             public void update(Missive missive)
             {
-                queue.add("");
+                try
+                {
+                    queue.put("done");
+                }
+                catch (InterruptedException e)
+                {
+                }
             }
         });
 
-    //    locator.sendCommand(new Synapse(new Update(missive)));
+        locator.sendCommand(new Synapse(new Update(missive)));
         
-        Thread.sleep(5000);
+        String done = queue.take();
+        assertEquals(done, "done");
     }
     
     @AfterMethod public void stopJetty() throws Exception

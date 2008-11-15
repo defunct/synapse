@@ -5,6 +5,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Date;
 import java.util.UUID;
 
@@ -14,14 +16,14 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 
-import org.curlybraces.synapse.Locator;
+import org.curlybraces.synapse.Envelope;
 import org.curlybraces.synapse.Missive;
 import org.curlybraces.synapse.Node;
 import org.curlybraces.synapse.ServletModule;
 import org.curlybraces.synapse.Synapse;
 import org.curlybraces.synapse.SynapseJettyHandler;
-import org.curlybraces.synapse.Update;
 import org.curlybraces.synapse.SynapseListener;
+import org.curlybraces.synapse.Update;
 import org.mortbay.jetty.Connector;
 import org.mortbay.jetty.Server;
 import org.mortbay.jetty.bio.SocketConnector;
@@ -95,15 +97,12 @@ public class UI
                 
                 Update update = new Update(missive);
                 Synapse synapse = new Synapse(update);
-                Locator locator = new Locator("localhost", 8888);
-
                 try
                 {
-                    locator.sendCommand(synapse);
+                    new Envelope(new URL("http", "localhost", 8888, "/synapse"), synapse).send();
                 }
-                catch (Exception e)
+                catch (MalformedURLException e)
                 {
-                    e.printStackTrace();
                 }
             }
         });

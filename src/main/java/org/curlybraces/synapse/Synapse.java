@@ -1,5 +1,6 @@
 package org.curlybraces.synapse;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -7,14 +8,14 @@ import java.util.UUID;
 
 /**
  * An instruction performed by the network and the history of its execution.
-
+ *
  * @author Alan Gutierrez
  */
 public class Synapse
 {
     private UUID id;
     
-    private List<Locator> visited = new ArrayList<Locator>();
+    private List<URL> visited = new ArrayList<URL>();
     
     private List<Command> executed = new ArrayList<Command>();
 
@@ -55,7 +56,11 @@ public class Synapse
     {
         Command command = commands.removeFirst();
         executed.add(command);
-        visited.add(node.getLocator());
+        visited.add(node.getURL());
         command.execute(node, this);
+        if (command.isTerminal() && commands.size() != 0)
+        {
+            node.sendCommand(node.getURL(), this);
+        }
     }
 }

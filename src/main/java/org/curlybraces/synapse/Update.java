@@ -31,15 +31,27 @@ public class Update extends Command
      * @param synapse
      *            The currently firing synapse.
      */
-    public void execute(Node node, Synapse synapse)
+    public void execute(final Node node, Synapse synapse)
     {
         Archive archive = node.getArchiveManager().get(missive.getPersonId());
         if (archive != null)
         {
             archive.add(missive);
         }
+        UUID callbackId = node.newCallback(new Runnable()
+        {
+            public void run()
+            {
+                for (SynapseListener listener : node.listeners())
+                {
+                    listener.update(missive);
+                }
+            }
+        });
         Synapse inject = new Synapse(new RouteMessageSynapse(missive.getId()),
-                                     new InjectMessage(missive));
-        node.getLocator().sendCommand(inject);
+                                     new InjectMessage(missive),
+                                     new Callback(node.getURL()),
+                                     new ExecuteCallback(callbackId));
+        node.sendCommand(node.getURL(), inject);
     }
 }

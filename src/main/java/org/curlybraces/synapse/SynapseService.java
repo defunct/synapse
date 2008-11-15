@@ -12,9 +12,13 @@ import org.jibx.runtime.IBindingFactory;
 import org.jibx.runtime.IMarshallingContext;
 import org.jibx.runtime.IUnmarshallingContext;
 import org.jibx.runtime.JiBXException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class SynapseService
 {
+    private final Logger logger = LoggerFactory.getLogger(SynapseService.class);
+
     private final Node node;
 
     public SynapseService(Node node)
@@ -32,6 +36,8 @@ public class SynapseService
     {
         try
         {
+            logger.debug("Process {} request to {}.", request.getMethod(), request.getRequestURI());
+            
             IBindingFactory bfact = BindingDirectory.getFactory(Synapse.class);
             IUnmarshallingContext uctx = bfact.createUnmarshallingContext();
             Synapse synapse = (Synapse) uctx.unmarshalDocument(request.getInputStream(), "UTF-8");

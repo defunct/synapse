@@ -16,6 +16,12 @@ public class RouteMessageSynapse extends Command
     }
     
     @Override
+    public boolean isTerminal()
+    {
+        return false;
+    }
+
+    @Override
     public void execute(Node node, Synapse synapse)
     {
         Network<UUID> messages = node.getMessageNetwork();
@@ -25,6 +31,6 @@ public class RouteMessageSynapse extends Command
         {
             synapse.shift(new RouteMessageSynapse(messageId));
         }
-        route.sendCommand(synapse);
+        node.sendCommand(route.get(synapse), synapse);
     }
 }

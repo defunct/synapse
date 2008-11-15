@@ -1,5 +1,6 @@
 package org.curlybraces.synapse;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -10,13 +11,13 @@ public class Route
     
     private final boolean leaf;
 
-    private final List<Locator> listOfLocators;
+    private final List<URL> listOfURLs;
     
     public Route(UUID id, boolean leaf)
     {
         this.id = id;
         this.leaf = leaf;
-        this.listOfLocators = new ArrayList<Locator>();
+        this.listOfURLs = new ArrayList<URL>();
     }
     
     public UUID getId()
@@ -29,27 +30,27 @@ public class Route
         return leaf;
     }
     
-    public void add(Locator locator)
+    public void add(URL url)
     {
-        if (!listOfLocators.contains(locator))
+        if (!listOfURLs.contains(url))
         {
-            listOfLocators.add(locator);
+            listOfURLs.add(url);
         }
     }
     
-    public Result sendCommand(Synapse synapse)
+    public URL get(Synapse synapse)
     {
-        int size = listOfLocators.size();
+        int size = listOfURLs.size();
         switch (size)
         {
         case 0:
             // Route the 
             throw new UnsupportedOperationException("Not implemeneted.");
         case 1:
-            return listOfLocators.get(0).sendCommand(synapse);
+            return listOfURLs.get(0);
         default:
             int index = (synapse.getId().hashCode() % size);
-            return listOfLocators.get(index).sendCommand(synapse);
+            return listOfURLs.get(index);
         }
     }
 }
