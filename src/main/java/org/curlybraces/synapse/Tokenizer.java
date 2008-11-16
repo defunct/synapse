@@ -17,7 +17,7 @@ public class Tokenizer
         
         terms.add(user);
         
-        String[] words = missive.getMessage().split("\\s+", 0);
+        String[] words = missive.getText().split("\\s+", 0);
         for (String word : words)
         {
             word = word.replaceFirst("^[^\\w\\d]+", "")

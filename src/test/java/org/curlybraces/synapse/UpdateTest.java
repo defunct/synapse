@@ -51,7 +51,7 @@ public class UpdateTest
         missive.setId(ID);
         missive.setDate(DATE);
         missive.setPersonId(ID);
-        missive.setMessage("This is a test.");
+        missive.setText("This is a test.");
         
         final LinkedBlockingQueue<String> queue = new LinkedBlockingQueue<String>();
         

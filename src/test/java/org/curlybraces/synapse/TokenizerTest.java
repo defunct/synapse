@@ -19,7 +19,7 @@ public class TokenizerTest
         
         missive.setId(ID);
         missive.setDate(DATE);
-        missive.setMessage("This is a test.");
+        missive.setText("This is a test.");
         missive.setPersonId(ID);
         
         Tokenizer tokenizer = new Tokenizer();

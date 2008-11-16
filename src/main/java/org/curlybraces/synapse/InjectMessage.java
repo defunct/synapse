@@ -17,6 +17,6 @@ extends Command
     @Override
     public void execute(Node node, Synapse synapse)
     {
-        System.out.println(message.getMessage());
+        System.out.println(message.getText());
     }
 }

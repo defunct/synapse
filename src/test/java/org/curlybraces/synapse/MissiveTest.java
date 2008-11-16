@@ -23,12 +23,12 @@ public class MissiveTest
         
         missive.setId(ID);
         missive.setDate(DATE);
-        missive.setMessage("This is a test.");
+        missive.setText("This is a test.");
         missive.setPersonId(PERSON_ID);
         
         assertEquals(missive.getId().toString(), ID);
         assertEquals(missive.getDate(), DATE);
-        assertEquals(missive.getMessage(), "This is a test.");
+        assertEquals(missive.getText(), "This is a test.");
         assertEquals(missive.getPersonId().toString(), PERSON_ID);
     }
 }

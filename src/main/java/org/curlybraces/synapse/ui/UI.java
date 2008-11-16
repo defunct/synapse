@@ -93,7 +93,7 @@ public class UI
                 missive.setId(UUID.randomUUID());
                 missive.setDate(new Date());
                 missive.setPersonId(UUID.randomUUID());
-                missive.setMessage(text);
+                missive.setText(text);
                 
                 Update update = new Update(missive);
                 Synapse synapse = new Synapse(update);

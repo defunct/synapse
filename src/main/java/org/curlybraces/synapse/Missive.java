@@ -11,7 +11,7 @@ public class Missive
     
     private Date date;
     
-    private String message;
+    private String text;
 
     public Missive()
     {
@@ -57,13 +57,13 @@ public class Missive
         return date;
     }
     
-    public void setMessage(String message)
+    public void setText(String message)
     {
-        this.message = message;
+        this.text = message;
     }
     
-    public String getMessage()
+    public String getText()
     {
-        return message;
+        return text;
     }
 }
