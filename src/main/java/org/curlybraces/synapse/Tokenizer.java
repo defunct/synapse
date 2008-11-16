@@ -5,19 +5,19 @@ import java.util.List;
 
 public class Tokenizer
 {
-    public List<Term> tokenize(Message missive)
+    public List<Term> tokenize(Message message)
     {
         List<Term> terms = new ArrayList<Term>();
 
         Term user = new Term();
-        user.setId(missive.getId());
-        user.setDate(missive.getDate());
+        user.setId(message.getId());
+        user.setDate(message.getDate());
         user.setFlag(Term.USER);
-        user.setWord(missive.getPersonId().toString());
+        user.setWord(message.getPersonId().toString());
         
         terms.add(user);
         
-        String[] words = missive.getText().split("\\s+", 0);
+        String[] words = message.getText().split("\\s+", 0);
         for (String word : words)
         {
             word = word.replaceFirst("^[^\\w\\d]+", "")
@@ -26,8 +26,8 @@ public class Tokenizer
                        .toLowerCase();
             Term term = new Term();
 
-            term.setId(missive.getId());
-            term.setDate(missive.getDate());
+            term.setId(message.getId());
+            term.setDate(message.getDate());
             term.setFlag(Term.KEYWORD);
             term.setWord(word);
             

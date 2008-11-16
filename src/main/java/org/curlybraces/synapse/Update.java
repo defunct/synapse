@@ -6,16 +6,16 @@ import java.util.UUID;
 
 public class Update extends Command
 {
-    private Message missive;
+    private Message message;
 
     public Update()
     {
     }
 
-    public Update(Message missive)
+    public Update(Message message)
     {
         super(UUID.randomUUID(), new Date());
-        this.missive = missive;
+        this.message = message;
     }
 
     /**
@@ -34,14 +34,14 @@ public class Update extends Command
      */
     public void execute(final Node node, Synapse synapse)
     {
-        Archive archive = node.getArchiveManager().get(missive.getPersonId());
+        Archive archive = node.getArchiveManager().get(message.getPersonId());
         if (archive != null)
         {
-            archive.add(missive);
+            archive.add(message);
         }
 
         Tokenizer tokenizer = new Tokenizer();
-        List<Term> terms = tokenizer.tokenize(missive); 
+        List<Term> terms = tokenizer.tokenize(message); 
         
         for (Term term : terms)
         {
@@ -54,13 +54,13 @@ public class Update extends Command
             {
                 for (SynapseListener listener : node.listeners())
                 {
-                    listener.update(missive);
+                    listener.update(message);
                 }
             }
         });
 
-        Synapse inject = new Synapse(new RouteMessageSynapse(missive.getId()),
-                                     new InjectMessage(missive),
+        Synapse inject = new Synapse(new RouteMessageSynapse(message.getId()),
+                                     new InjectMessage(message),
                                      new Callback(node.getURL()),
                                      new ExecuteCallback(callbackId));
         node.sendCommand(node.getURL(), inject);
