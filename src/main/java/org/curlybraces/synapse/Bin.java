@@ -8,21 +8,21 @@ public class Bin<T>
 {
     private final Map<UUID, T> mapOfObjects;
     
-    private UUID next;
+    private UUID end;
     
     public Bin()
     {
         this.mapOfObjects = new TreeMap<UUID, T>();
     }
     
-    public void setNext(UUID next)
+    public void setEnd(UUID next)
     {
-        this.next = next;
+        this.end = next;
     }
     
-    public UUID getNext()
+    public UUID getEnd()
     {
-        return next;
+        return end;
     }
     
     public void put(UUID id, T object)

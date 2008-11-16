@@ -19,7 +19,7 @@ public class Storage<T>
         if (tail.size() != 0)
         {
             Bin<T> bin = tail.get(tail.firstKey());
-            if (id.compareTo(bin.getNext()) < 0)
+            if (id.compareTo(bin.getEnd()) < 0)
             {
                 return bin.get(id);
             }
