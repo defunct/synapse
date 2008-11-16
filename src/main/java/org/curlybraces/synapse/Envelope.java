@@ -29,7 +29,7 @@ public class Envelope
         this.synapse = synapse;
     }
     
-    public Result send()
+    public Receipt send()
     {
         try
         {
@@ -49,7 +49,7 @@ public class Envelope
         }
     }
     
-    private Result trySend() throws MalformedURLException, IOException, JiBXException
+    private Receipt trySend() throws MalformedURLException, IOException, JiBXException
     {
         logger.debug("Sending synapse to {}.", url);
         
@@ -84,6 +84,6 @@ public class Envelope
         
         logger.debug("Sent synapse to {} response {}", url, connection.getResponseCode());
 
-        return new Result(connection.getResponseCode(), verification);
+        return new Receipt(connection.getResponseCode(), verification);
     }
 }

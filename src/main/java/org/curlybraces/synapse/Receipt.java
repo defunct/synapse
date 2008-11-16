@@ -1,12 +1,12 @@
 package org.curlybraces.synapse;
 
-public class Result
+public class Receipt
 {
     private final int code;
     
     private final Verification verification;
     
-    public Result(int code, Verification verification)
+    public Receipt(int code, Verification verification)
     {
         this.code = code;
         this.verification = verification;
