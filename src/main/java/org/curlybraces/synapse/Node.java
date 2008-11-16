@@ -22,7 +22,7 @@ public class Node
 
     private final UUID id;
 
-    private final Dictionary siloManager;
+    private final Dictionary dictionary;
 
     private final ArchiveManager archiveManager;
 
@@ -35,6 +35,8 @@ public class Node
     private final LinkedList<UUID> calledback;
 
     private final LinkedBlockingQueue<Task> envelopes;
+    
+    private final Storage<Missive> messages;
 
     private Thread mailman;
 
@@ -44,13 +46,14 @@ public class Node
     public Node(Dictionary siloManager, ArchiveManager archiveManager)
     {
         this.id = UUID.randomUUID();
-        this.siloManager = siloManager;
+        this.dictionary = siloManager;
         this.archiveManager = archiveManager;
         this.messageNetwork = new Network<UUID>(UUID.randomUUID(), new UUID(0L, 0L));
         this.listOfListeners = new ArrayList<SynapseListener>();
         this.callbacks = new HashMap<UUID, Runnable>();
         this.calledback = new LinkedList<UUID>();
         this.envelopes = new LinkedBlockingQueue<Task>();
+        this.messages = new Storage<Missive>();
     }
 
     public void start()
@@ -104,9 +107,9 @@ public class Node
         return url;
     }
 
-    public Dictionary getSiloManager()
+    public Dictionary getDictionary()
     {
-        return siloManager;
+        return dictionary;
     }
 
     public ArchiveManager getArchiveManager()
@@ -117,6 +120,11 @@ public class Node
     public Network<UUID> getMessageNetwork()
     {
         return messageNetwork;
+    }
+    
+    public Storage<Missive> getMessageStorage()
+    {
+        return messages;
     }
 
     /**
