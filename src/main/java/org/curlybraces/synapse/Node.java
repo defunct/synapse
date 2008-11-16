@@ -19,7 +19,9 @@ import com.google.inject.Inject;
 public class Node
 {
     private final Logger logger = LoggerFactory.getLogger(Node.class);
-
+    
+    public final UUID MIN_UUID = new UUID(Long.MIN_VALUE, Long.MIN_VALUE);
+    
     private final UUID id;
 
     private final Dictionary dictionary;
@@ -45,15 +47,25 @@ public class Node
     @Inject
     public Node(Dictionary siloManager, ArchiveManager archiveManager)
     {
-        this.id = UUID.randomUUID();
+        UUID id = UUID.randomUUID();
+        
+        Storage<Message> messageStorage = new Storage<Message>();
+        messageStorage.create(MIN_UUID, new UUID(Long.MAX_VALUE, Long.MAX_VALUE));
+
+        Route route = new Route(id, true);
+        Network<UUID> messageNetwork = new Network<UUID>(UUID.randomUUID(), MIN_UUID);
+        messageNetwork.get(messageNetwork.getRootId()).add(MIN_UUID, route);
+
+        this.id = id;
         this.dictionary = siloManager;
         this.archiveManager = archiveManager;
-        this.messageNetwork = new Network<UUID>(UUID.randomUUID(), new UUID(0L, 0L));
         this.listOfListeners = new ArrayList<SynapseListener>();
         this.callbacks = new HashMap<UUID, Runnable>();
         this.calledback = new LinkedList<UUID>();
         this.envelopes = new LinkedBlockingQueue<Task>();
-        this.messages = new Storage<Message>();
+
+        this.messageNetwork = messageNetwork;
+        this.messages = messageStorage;
     }
 
     public void start()
@@ -98,8 +110,7 @@ public class Node
     public void setURL(URL url)
     {
         this.url = url;
-        getMessageNetwork().get(getMessageNetwork().getRootId()).get(
-                new UUID(0L, 0L)).add(url);
+        getMessageNetwork().get(getMessageNetwork().getRootId()).get(MIN_UUID).add(url);
     }
 
     public URL getURL()

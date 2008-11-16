@@ -17,14 +17,16 @@ public class RouterTest
     @Test public void greatest()
     {
         Route route = new Route(ROUTE_ID, true);
-        Router<String> router = new Router<String>(ROUTER_ID, "", route);
+        Router<String> router = new Router<String>(ROUTER_ID);
+        router.add("", route);
         assertEquals(ROUTE_ID, router.get("A").getId());
     }
     
     @Test public void search()
     {
         Route route = new Route(ROUTE_ID, true);
-        Router<String> router = new Router<String>(ROUTER_ID, "", new Route(UUID.randomUUID(), true));
+        Router<String> router = new Router<String>(ROUTER_ID);
+        router.add("", new Route(UUID.randomUUID(), true));
         router.add("G", route);
         assertEquals(ROUTE_ID, router.get("H").getId());
         assertEquals(ROUTE_ID, router.get("G").getId());

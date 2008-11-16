@@ -15,23 +15,23 @@
         <value name="flag" field="flag"/>
         <value name="word" field="word"/>
     </mapping>
-    <mapping name="missive" class="org.curlybraces.synapse.Missive">
+    <mapping name="missive" class="org.curlybraces.synapse.Message">
         <value name="id" field="id" deserializer="java.util.UUID.fromString"/>
         <value name="date" field="date"/>
         <value name="personId" field="personId" deserializer="java.util.UUID.fromString"/>
-        <value name="message" field="message"/>
+        <value name="text" field="text"/>
     </mapping>
     <mapping name="echo" class="org.curlybraces.synapse.Echo">
         <value name="message" field="message"/>
     </mapping>
     <mapping name="update" class="org.curlybraces.synapse.Update">
-        <structure field="missive" type="org.curlybraces.synapse.Missive"/>
+        <structure field="missive" type="org.curlybraces.synapse.Message"/>
     </mapping>
     <mapping name="routeroute" class="org.curlybraces.synapse.RouteMessageSynapse">
         <value name="messageId" field="messageId" deserializer="java.util.UUID.fromString"/>
     </mapping>
     <mapping name="inject-message" class="org.curlybraces.synapse.InjectMessage">
-        <structure field="message" type="org.curlybraces.synapse.Missive"/>
+        <structure field="message" type="org.curlybraces.synapse.Message"/>
     </mapping>
     <mapping name="callback" class="org.curlybraces.synapse.Callback">
         <value name="url" field="url" />

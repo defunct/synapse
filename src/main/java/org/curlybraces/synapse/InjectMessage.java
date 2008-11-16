@@ -24,7 +24,7 @@ extends Command
         }
         else
         {
-            System.out.println(message.getText());
+            bin.put(message.getId(), message);
         }
     }
 }

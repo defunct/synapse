@@ -10,9 +10,10 @@ public class Bin<T>
     
     private UUID end;
     
-    public Bin()
+    public Bin(UUID end)
     {
         this.mapOfObjects = new TreeMap<UUID, T>();
+        this.end = end;
     }
     
     public void setEnd(UUID next)

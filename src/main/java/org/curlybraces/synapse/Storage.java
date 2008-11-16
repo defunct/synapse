@@ -26,4 +26,10 @@ public class Storage<T>
         }
         return null;
     }
+    
+    public void create(UUID min, UUID max)
+    {
+        Bin<T> bin = new Bin<T>(max);
+        mapOfBins.put(min, bin);
+    }
 }

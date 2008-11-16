@@ -27,17 +27,11 @@ public class Router<K extends Comparable<K>>
      * 
      * @param id
      *            The unique id of the router.
-     * @param min
-     *            The minimum value of the key type.
-     * @param least
-     *            A route to follow to find the keys less than the smallest key
-     *            value in the router.
      */
-    public Router(UUID id, K min, Route least)
+    public Router(UUID id)
     {
         this.id = id;
         this.mapOfRoutes = new TreeMap<K, Route>(new Reverse<K>());
-        this.mapOfRoutes.put(min, least);
     }
 
     /**
