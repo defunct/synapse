@@ -1,6 +1,7 @@
 package org.curlybraces.synapse;
 
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 public class Update extends Command
@@ -38,6 +39,15 @@ public class Update extends Command
         {
             archive.add(missive);
         }
+
+        Tokenizer tokenizer = new Tokenizer();
+        List<Term> terms = tokenizer.tokenize(missive); 
+        
+        for (Term term : terms)
+        {
+            term.getClass();
+        }
+        
         UUID callbackId = node.newCallback(new Runnable()
         {
             public void run()
@@ -48,6 +58,7 @@ public class Update extends Command
                 }
             }
         });
+
         Synapse inject = new Synapse(new RouteMessageSynapse(missive.getId()),
                                      new InjectMessage(missive),
                                      new Callback(node.getURL()),
