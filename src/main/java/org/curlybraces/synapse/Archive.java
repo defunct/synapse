@@ -6,9 +6,9 @@ public interface Archive
 {
     public UUID getPersonId();
 
-    public void add(Missive missive);
+    public void add(Message missive);
     
-    public Missive get(UUID missiveId);
+    public Message get(UUID missiveId);
     
     public interface Builder
     {

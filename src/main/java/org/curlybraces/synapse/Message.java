@@ -3,7 +3,7 @@ package org.curlybraces.synapse;
 import java.util.Date;
 import java.util.UUID;
 
-public class Missive
+public class Message
 {
     private UUID id;
     
@@ -13,7 +13,7 @@ public class Missive
     
     private String text;
 
-    public Missive()
+    public Message()
     {
     }
 

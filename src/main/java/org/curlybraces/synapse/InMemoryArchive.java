@@ -8,12 +8,12 @@ public class InMemoryArchive implements Archive
 {
     private final UUID personId;
     
-    private final Map<UUID, Missive> mapOfMissives;
+    private final Map<UUID, Message> mapOfMissives;
     
     public InMemoryArchive(UUID personId)
     {
         this.personId = personId;
-        this.mapOfMissives = new HashMap<UUID, Missive>();
+        this.mapOfMissives = new HashMap<UUID, Message>();
     }
     
     public UUID getPersonId()
@@ -21,12 +21,12 @@ public class InMemoryArchive implements Archive
         return personId;
     }
 
-    public void add(Missive missive)
+    public void add(Message missive)
     {
         mapOfMissives.put(missive.getId(), missive);
     }
     
-    public Missive get(UUID missiveId)
+    public Message get(UUID missiveId)
     {
         return mapOfMissives.get(missiveId);
     }

@@ -15,7 +15,7 @@ public class TokenizerTest
 
     @Test public void tokenize()
     {
-        Missive missive = new Missive();
+        Message missive = new Message();
         
         missive.setId(ID);
         missive.setDate(DATE);

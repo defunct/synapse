@@ -18,7 +18,7 @@ public class InMemorySiloTest
         Silo.Builder newSilo = new InMemorySilo.Builder(3);
         Silo silo = newSilo.newSilo();
 
-        Missive missive = new Missive();
+        Message missive = new Message();
         
         missive.setId(ID);
         missive.setDate(DATE);

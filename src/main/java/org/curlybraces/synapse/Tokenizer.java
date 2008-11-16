@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Tokenizer
 {
-    public List<Term> tokenize(Missive missive)
+    public List<Term> tokenize(Message missive)
     {
         List<Term> terms = new ArrayList<Term>();
 

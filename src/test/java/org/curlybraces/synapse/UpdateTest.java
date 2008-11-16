@@ -46,7 +46,7 @@ public class UpdateTest
     
     @Test public void update() throws Exception
     {
-        Missive missive = new Missive();
+        Message missive = new Message();
         
         missive.setId(ID);
         missive.setDate(DATE);
@@ -58,7 +58,7 @@ public class UpdateTest
         node.addListener(new SynapseListener()
         {
             @Override
-            public void update(Missive missive)
+            public void update(Message missive)
             {
                 try
                 {

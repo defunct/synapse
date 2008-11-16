@@ -5,13 +5,13 @@ import java.util.UUID;
 
 public class Update extends Command
 {
-    private Missive missive;
+    private Message missive;
 
     public Update()
     {
     }
 
-    public Update(Missive missive)
+    public Update(Message missive)
     {
         super(UUID.randomUUID(), new Date());
         this.missive = missive;

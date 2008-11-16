@@ -17,7 +17,7 @@ public class MissiveTest
     
     @Test public void setters()
     {
-        Missive missive = new Missive();
+        Message missive = new Message();
         
         System.out.println(UUID.randomUUID());
         

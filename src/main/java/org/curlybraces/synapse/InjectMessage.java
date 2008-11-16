@@ -3,13 +3,13 @@ package org.curlybraces.synapse;
 public class InjectMessage
 extends Command
 {
-    private Missive message;
+    private Message message;
     
     public InjectMessage()
     {
     }
     
-    public InjectMessage(Missive missive)
+    public InjectMessage(Message missive)
     {
         this.message = missive;
     }

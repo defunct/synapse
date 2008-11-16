@@ -36,7 +36,7 @@ public class Node
 
     private final LinkedBlockingQueue<Task> envelopes;
     
-    private final Storage<Missive> messages;
+    private final Storage<Message> messages;
 
     private Thread mailman;
 
@@ -53,7 +53,7 @@ public class Node
         this.callbacks = new HashMap<UUID, Runnable>();
         this.calledback = new LinkedList<UUID>();
         this.envelopes = new LinkedBlockingQueue<Task>();
-        this.messages = new Storage<Missive>();
+        this.messages = new Storage<Message>();
     }
 
     public void start()
@@ -122,7 +122,7 @@ public class Node
         return messageNetwork;
     }
     
-    public Storage<Missive> getMessageStorage()
+    public Storage<Message> getMessageStorage()
     {
         return messages;
     }

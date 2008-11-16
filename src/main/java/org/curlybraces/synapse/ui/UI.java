@@ -17,7 +17,7 @@ import javax.swing.JTextField;
 import javax.swing.UIManager;
 
 import org.curlybraces.synapse.Envelope;
-import org.curlybraces.synapse.Missive;
+import org.curlybraces.synapse.Message;
 import org.curlybraces.synapse.Node;
 import org.curlybraces.synapse.ServletModule;
 import org.curlybraces.synapse.Synapse;
@@ -71,7 +71,7 @@ public class UI
         node.addListener(new SynapseListener()
         {
             @Override
-            public void update(Missive missive)
+            public void update(Message missive)
             {
                 JOptionPane.showMessageDialog(frame, "Eggs are not supposed to be green.");
             }
@@ -88,7 +88,7 @@ public class UI
             {
                 String text = field.getText();
                 
-                Missive missive = new Missive();
+                Message missive = new Message();
                 
                 missive.setId(UUID.randomUUID());
                 missive.setDate(new Date());
