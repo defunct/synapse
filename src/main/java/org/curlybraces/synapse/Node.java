@@ -22,7 +22,7 @@ public class Node
 
     private final UUID id;
 
-    private final SiloManager siloManager;
+    private final Dictionary siloManager;
 
     private final ArchiveManager archiveManager;
 
@@ -41,7 +41,7 @@ public class Node
     private URL url;
 
     @Inject
-    public Node(SiloManager siloManager, ArchiveManager archiveManager)
+    public Node(Dictionary siloManager, ArchiveManager archiveManager)
     {
         this.id = UUID.randomUUID();
         this.siloManager = siloManager;
@@ -104,7 +104,7 @@ public class Node
         return url;
     }
 
-    public SiloManager getSiloManager()
+    public Dictionary getSiloManager()
     {
         return siloManager;
     }

@@ -6,12 +6,12 @@ import java.util.UUID;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 
-public class SiloManager
+public class Dictionary
 {
     private final Provider<Silo.Builder> newSiloProvider;
     
     @Inject
-    public SiloManager(Provider<Silo.Builder> newSiloProvider)
+    public Dictionary(Provider<Silo.Builder> newSiloProvider)
     {
         this.newSiloProvider = newSiloProvider;
     }
