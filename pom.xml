@@ -8,7 +8,7 @@
     <packaging>jar</packaging>
     <version>beta-1</version>
     <name>synapse</name>
-    <description>My first 3rd party Twitter application.</description>
+    <description>Peer-to-peer micro-sharing.</description>
 
     <organization>
         <name>Alan Gutierrez</name>
