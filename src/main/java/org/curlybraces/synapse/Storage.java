@@ -13,7 +13,7 @@ public class Storage<T>
         this.mapOfBins = new TreeMap<UUID, Bin<T>>(new Reverse<UUID>());
     }
     
-    public T get(UUID id)
+    public Bin<T> get(UUID id)
     {
         SortedMap<UUID, Bin<T>> tail = mapOfBins.tailMap(id);
         if (tail.size() != 0)
@@ -21,7 +21,7 @@ public class Storage<T>
             Bin<T> bin = tail.get(tail.firstKey());
             if (id.compareTo(bin.getEnd()) < 0)
             {
-                return bin.get(id);
+                return bin;
             }
         }
         return null;

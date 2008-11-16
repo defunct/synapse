@@ -55,9 +55,9 @@ public class Synapse
     public void execute(Node node)
     {
         Command command = commands.removeFirst();
+        command.execute(node, this);
         executed.add(command);
         visited.add(node.getURL());
-        command.execute(node, this);
         if (command.isTerminal() && commands.size() != 0)
         {
             node.sendCommand(node.getURL(), this);

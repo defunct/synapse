@@ -17,6 +17,14 @@ extends Command
     @Override
     public void execute(Node node, Synapse synapse)
     {
-        System.out.println(message.getText());
+        Bin<Message> bin = node.getMessageStorage().get(message.getId());
+        if (bin == null)
+        {
+            System.out.println("No bin found.");
+        }
+        else
+        {
+            System.out.println(message.getText());
+        }
     }
 }
