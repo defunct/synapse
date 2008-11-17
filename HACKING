@@ -1,0 +1,46 @@
+SYNAPSE
+
+Open Source Peer-to-Peer Micro-Sharing
+
+TOOLSET
+
+The code is Java. (A C++ implementation is rattling around my head.)
+
+    Code: git (http://git.or.cz/)
+    IDEs: Eclipse (http://www.eclipse.org/)
+    Build: Maven (http://maven.apache.org/)
+
+Install the above. I'm open to supporting addional IDEs, if someone
+wants to share their NetBeans, IDEA, etc. configurations.
+
+BUILD
+
+Clone the git repostiory.
+
+    git clone git://github.com/bigeasy/synapse.git synapse
+
+Pull the dependencies.
+
+    cd synapse
+    mvn install
+    
+Launch Eclipse and add the Synapse project.
+
+PATCHES
+
+Synapse is shared via GitHub. You are more than welcome to fork a copy
+and make changes to the code under the licensing terms.
+
+If you make changes and would like to share them with me, you can drop
+me a line at...
+
+    alan@blogometer.com
+
+I'm not imaginging much interest in the project at this point, so I'm
+not sure how to merge contributions, or if my code base is the
+authority. It will probably be based on the working relationship
+established with the first person to suggest a patch.
+
+CONTRIBUTIONS
+
+Monitary contributions and support are always welcome.
