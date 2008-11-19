@@ -32,15 +32,17 @@ public class Node
 
     private final List<SynapseListener> listOfListeners;
 
-    private final Network<UUID> messageNetwork;
-
     private final Map<UUID, Runnable> callbacks;
 
     private final LinkedList<UUID> calledback;
 
     private final LinkedBlockingQueue<Task> envelopes;
+
+    /** The message network. */
+    private final Network<UUID> messageNetwork;
     
-    private final Storage<Message> messages;
+    /** The message storage. */
+    private final Storage<Message> messageStorage;
     
     private final Network<UUID> profileNetwork;
     
@@ -78,7 +80,7 @@ public class Node
         this.envelopes = new LinkedBlockingQueue<Task>();
 
         this.messageNetwork = messageNetwork;
-        this.messages = messageStorage;
+        this.messageStorage = messageStorage;
         
         this.profileNetwork = profileNetwork;
         this.profileStorage = profileStorage;
@@ -145,14 +147,24 @@ public class Node
         return archiveManager;
     }
 
+    /**
+     * Return the message network for this node.
+     * 
+     * @return The message network.
+     */
     public Network<UUID> getMessageNetwork()
     {
         return messageNetwork;
     }
     
+    /**
+     * Return the message storage for this node.
+     * 
+     * @return The message storage.
+     */
     public Storage<Message> getMessageStorage()
     {
-        return messages;
+        return messageStorage;
     }
     
     public Network<UUID> getProfileNetwork()
