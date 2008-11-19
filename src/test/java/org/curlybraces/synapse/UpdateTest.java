@@ -51,7 +51,7 @@ public class UpdateTest
         
         final LinkedBlockingQueue<String> queue = new LinkedBlockingQueue<String>();
         
-        node.addListener(new SynapseListener()
+        node.addListener(new NodeListener()
         {
             @Override
             public void update(Message missive)

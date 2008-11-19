@@ -20,7 +20,7 @@ public class UpdateListener
     {
         if (--count == 0)
         {
-            for (SynapseListener listener : node.listeners())
+            for (NodeListener listener : node.listeners())
             {
                 listener.update(message);
             }

@@ -49,7 +49,7 @@ public class SetProfileTest
 
         final LinkedBlockingQueue<String> queue = new LinkedBlockingQueue<String>();
 
-        node.addListener(new SynapseListener()
+        node.addListener(new NodeListener()
         {
             @Override
             public void setProfile(Profile profile)

@@ -20,9 +20,9 @@ public class TokenTest
     
     private final static String XML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
         "<token>" +
-            "<id>7b2fb945-c913-48aa-ad25-346e27c2064b</id>" +
+            "<message-id>7b2fb945-c913-48aa-ad25-346e27c2064b</message-id>" +
             "<date>2008-11-12T01:28:00.48Z</date>" +
-            "<flag>1</flag>" +
+            "<type>1</type>" +
             "<word>Obama</word>" +
         "</token>";
 

@@ -6,7 +6,7 @@ package org.curlybraces.synapse;
  * 
  * @author Alan Gutierrez
  */
-public class SynapseListener
+public class NodeListener
 {
     /**
      * Called when a profile has been injected into the network by this node.

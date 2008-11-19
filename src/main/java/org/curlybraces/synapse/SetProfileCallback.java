@@ -35,7 +35,7 @@ public class SetProfileCallback implements Runnable
      */
     public void run()
     {
-        for (SynapseListener listener : node.listeners())
+        for (NodeListener listener : node.listeners())
         {
             listener.setProfile(profile);
         }

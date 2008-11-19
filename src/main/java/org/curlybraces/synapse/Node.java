@@ -28,7 +28,7 @@ public class Node
         
     private final Map<UUID, Archive> mapOfArchives;
 
-    private final List<SynapseListener> listOfListeners;
+    private final List<NodeListener> listOfListeners;
 
     private final Map<UUID, Runnable> callbacks;
 
@@ -79,7 +79,7 @@ public class Node
 
         this.id = id;
         this.mapOfArchives = new HashMap<UUID, Archive>();
-        this.listOfListeners = new ArrayList<SynapseListener>();
+        this.listOfListeners = new ArrayList<NodeListener>();
         this.callbacks = new HashMap<UUID, Runnable>();
         this.calledback = new LinkedList<UUID>();
         this.envelopes = new LinkedBlockingQueue<Task>();
@@ -220,7 +220,7 @@ public class Node
      * @param listener
      *            A synapse listener.
      */
-    public void addListener(SynapseListener listener)
+    public void addListener(NodeListener listener)
     {
         listOfListeners.add(listener);
     }
@@ -232,7 +232,7 @@ public class Node
      * @param listener
      *            A synapse listener to remove.
      */
-    public void removeListener(SynapseListener listener)
+    public void removeListener(NodeListener listener)
     {
         while (listOfListeners.remove(listener))
         {
@@ -245,7 +245,7 @@ public class Node
      * 
      * @return An unmodifiable collection of listeners.
      */
-    public Collection<SynapseListener> listeners()
+    public Collection<NodeListener> listeners()
     {
         return Collections.unmodifiableCollection(listOfListeners);
     }

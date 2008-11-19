@@ -21,7 +21,7 @@ import org.curlybraces.synapse.Message;
 import org.curlybraces.synapse.Node;
 import org.curlybraces.synapse.Synapse;
 import org.curlybraces.synapse.SynapseJettyHandler;
-import org.curlybraces.synapse.SynapseListener;
+import org.curlybraces.synapse.NodeListener;
 import org.curlybraces.synapse.Update;
 import org.mortbay.jetty.Connector;
 import org.mortbay.jetty.Server;
@@ -62,7 +62,7 @@ public class UI
         
         final JFrame frame = new JFrame("Synapse");
         
-        node.addListener(new SynapseListener()
+        node.addListener(new NodeListener()
         {
             @Override
             public void update(Message missive)

@@ -15,7 +15,7 @@
 		</collection>
 	</mapping>
     <mapping name="token" class="org.curlybraces.synapse.Token">
-        <value name="messageId" field="messageId" deserializer="java.util.UUID.fromString"/>
+        <value name="message-id" field="messageId" deserializer="java.util.UUID.fromString"/>
         <value name="date" field="date"/>
         <value name="type" field="type"/>
         <value name="word" field="word"/>

@@ -41,14 +41,14 @@ public class Update extends Command
         }
 
         Tokenizer tokenizer = new Tokenizer();
-        List<Token> terms = tokenizer.tokenize(message); 
+        List<Token> tokens = tokenizer.tokenize(message); 
         
-        UpdateListener listener = new UpdateListener(node, message, terms.size() + 1);
-        for (Token term : terms)
+        UpdateListener listener = new UpdateListener(node, message, tokens.size() + 1);
+        for (Token token : tokens)
         {
             UUID callbackId = node.newCallback(new UpdateCallback(listener));
-            Synapse inject = new Synapse(new RouteMessageSynapse(message.getId()),
-                                         new InjectToken(term),
+            Synapse inject = new Synapse(new RouteTokenSynapse(token.toTerm()),
+                                         new InjectToken(token),
                                          new Callback(node.getURL()),
                                          new ExecuteCallback(callbackId));
             node.sendCommand(node.getURL(), inject);
