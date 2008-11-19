@@ -4,13 +4,13 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-public class InMemoryArchive
+public class Archive
 {
     private final UUID personId;
     
     private final Map<UUID, Message> mapOfMissives;
     
-    public InMemoryArchive(UUID personId)
+    public Archive(UUID personId)
     {
         this.personId = personId;
         this.mapOfMissives = new HashMap<UUID, Message>();

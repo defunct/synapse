@@ -26,7 +26,7 @@ public class Node
     
     private final Dictionary dictionary;
         
-    private final Map<UUID, InMemoryArchive> mapOfArchives;
+    private final Map<UUID, Archive> mapOfArchives;
 
     private final List<SynapseListener> listOfListeners;
 
@@ -70,7 +70,7 @@ public class Node
 
         this.id = id;
         this.dictionary = new Dictionary();
-        this.mapOfArchives = new HashMap<UUID, InMemoryArchive>();
+        this.mapOfArchives = new HashMap<UUID, Archive>();
         this.listOfListeners = new ArrayList<SynapseListener>();
         this.callbacks = new HashMap<UUID, Runnable>();
         this.calledback = new LinkedList<UUID>();
@@ -139,12 +139,12 @@ public class Node
         return dictionary;
     }
 
-    public InMemoryArchive getArchive(UUID profileId)
+    public Archive getArchive(UUID profileId)
     {
-        InMemoryArchive archive = mapOfArchives.get(profileId);
+        Archive archive = mapOfArchives.get(profileId);
         if (archive == null)
         {
-            archive = new InMemoryArchive(profileId);
+            archive = new Archive(profileId);
             mapOfArchives.put(profileId, archive);
         }
         return archive;
