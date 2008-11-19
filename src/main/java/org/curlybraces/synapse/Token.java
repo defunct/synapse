@@ -3,7 +3,7 @@ package org.curlybraces.synapse;
 import java.util.Date;
 import java.util.UUID;
 
-public class Term implements Comparable<Term>
+public class Token implements Comparable<Token>
 {
     public final static short KEYWORD = 1;
     
@@ -13,31 +13,31 @@ public class Term implements Comparable<Term>
     
     public final static short FULL_URL = 4;
 
-    private UUID id;
+    private UUID messageId;
     
     private Date date;
     
-    private short flag;
+    private short type;
     
     private String word;
     
-    public Term()
+    public Token()
     {
     }
 
-    public UUID getId()
+    public UUID getMessageId()
     {
-        return id;
+        return messageId;
     }
     
-    public void setId(UUID id)
+    public void setMessageId(UUID id)
     {
-        this.id = id;
+        this.messageId = id;
     }
     
     public void setId(String id)
     {
-        setId(UUID.fromString(id)); 
+        setMessageId(UUID.fromString(id)); 
     }
     
     public Date getDate()
@@ -50,14 +50,14 @@ public class Term implements Comparable<Term>
         this.date = date;
     }
     
-    public void setFlag(short flag)
+    public void setType(short type)
     {
-        this.flag = flag;
+        this.type = type;
     }
     
-    public short getFlag()
+    public short getType()
     {
-        return flag;
+        return type;
     }
     
     public void setWord(String word)
@@ -72,10 +72,10 @@ public class Term implements Comparable<Term>
     
     public String toString()
     {
-        return "{ missive: " + id + ", type : " + flag + ", word: " + word + "}"; 
+        return "{ missive: " + messageId + ", type : " + type + ", word: " + word + "}"; 
     }
     
-    public int compareTo(Term o)
+    public int compareTo(Token o)
     {
         int compare = getWord().compareTo(o.getWord());
         if (compare == 0)
@@ -83,10 +83,10 @@ public class Term implements Comparable<Term>
             compare = o.getDate().compareTo(getDate());
             if (compare == 0)
             {
-                compare = getFlag() - o.getFlag();
+                compare = getType() - o.getType();
                 if (compare == 0)
                 {
-                    return getId().compareTo(o.getId());
+                    return getMessageId().compareTo(o.getMessageId());
                 }
             }
             
@@ -94,16 +94,31 @@ public class Term implements Comparable<Term>
         return compare;
     }
     
+    public String toTerm()
+    {
+        switch (getType())
+        {
+        case KEYWORD:
+            return getWord();
+        case USER:
+            return '"' + getWord();
+        case SHORTENED_URL:
+            return ';' + getWord();
+        default: 
+            return ':' + getWord();
+        }
+    }
+    
     @Override
     public boolean equals(Object object)
     {
-        if (object instanceof Term)
+        if (object instanceof Token)
         {
-            Term term = (Term) object;
+            Token term = (Token) object;
             return getWord().equals(term.getWord())
                 && getDate().equals(term.getDate())
-                && getFlag() == term.getFlag()
-                && getId() == term.getId();
+                && getType() == term.getType()
+                && getMessageId() == term.getMessageId();
         }
         return false;
     }
@@ -112,9 +127,9 @@ public class Term implements Comparable<Term>
     public int hashCode()
     {
         int hash = 1;
-        hash = hash * 37 + getId().hashCode();
+        hash = hash * 37 + getMessageId().hashCode();
         hash = hash * 37 + getDate().hashCode();
-        hash = hash * 37 + getFlag();
+        hash = hash * 37 + getType();
         hash = hash * 37 + getWord().hashCode();
         return hash;
     }

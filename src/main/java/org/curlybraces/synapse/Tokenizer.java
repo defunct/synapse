@@ -5,14 +5,14 @@ import java.util.List;
 
 public class Tokenizer
 {
-    public List<Term> tokenize(Message message)
+    public List<Token> tokenize(Message message)
     {
-        List<Term> terms = new ArrayList<Term>();
+        List<Token> terms = new ArrayList<Token>();
 
-        Term user = new Term();
-        user.setId(message.getId());
+        Token user = new Token();
+        user.setMessageId(message.getId());
         user.setDate(message.getDate());
-        user.setFlag(Term.USER);
+        user.setType(Token.USER);
         user.setWord(message.getPersonId().toString());
         
         terms.add(user);
@@ -24,14 +24,14 @@ public class Tokenizer
                        .replaceFirst("[^\\w\\d]+$", "")
                        .replaceAll("'+", "'")
                        .toLowerCase();
-            Term term = new Term();
+            Token token = new Token();
 
-            term.setId(message.getId());
-            term.setDate(message.getDate());
-            term.setFlag(Term.KEYWORD);
-            term.setWord(word);
+            token.setMessageId(message.getId());
+            token.setDate(message.getDate());
+            token.setType(Token.KEYWORD);
+            token.setWord(word);
             
-            terms.add(term);
+            terms.add(token);
         }
         return terms;
     }

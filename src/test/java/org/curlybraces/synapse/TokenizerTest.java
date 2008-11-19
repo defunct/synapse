@@ -23,7 +23,7 @@ public class TokenizerTest
         missive.setPersonId(ID);
         
         Tokenizer tokenizer = new Tokenizer();
-        List<Term> terms = tokenizer.tokenize(missive);
+        List<Token> terms = tokenizer.tokenize(missive);
         
         assertEquals(terms.size(), 5);
         assertEquals(terms.get(0).getWord(), ID.toString());

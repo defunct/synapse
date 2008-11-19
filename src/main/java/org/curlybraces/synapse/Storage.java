@@ -13,6 +13,12 @@ public class Storage<T>
         this.mapOfBins = new TreeMap<UUID, Bin<T>>(new Reverse<UUID>());
     }
     
+    public void create(UUID min, UUID max)
+    {
+        Bin<T> bin = new Bin<T>(max);
+        mapOfBins.put(min, bin);
+    }
+    
     public Bin<T> get(UUID id)
     {
         SortedMap<UUID, Bin<T>> tail = mapOfBins.tailMap(id);
@@ -25,11 +31,5 @@ public class Storage<T>
             }
         }
         return null;
-    }
-    
-    public void create(UUID min, UUID max)
-    {
-        Bin<T> bin = new Bin<T>(max);
-        mapOfBins.put(min, bin);
     }
 }

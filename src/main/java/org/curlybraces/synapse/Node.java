@@ -36,6 +36,8 @@ public class Node
 
     private final LinkedBlockingQueue<Task> envelopes;
 
+    private final Network<String> tokenNetwork;
+    
     /** The message network. */
     private final Network<UUID> messageNetwork;
     
@@ -58,6 +60,13 @@ public class Node
         messageStorage.create(MIN_UUID, MAX_UUID);
 
         Route route = new Route(id, true);
+        Network<String> tokenNetwork = new Network<String>(UUID.randomUUID(), "");
+        tokenNetwork.get(tokenNetwork.getRootId()).add("", route);
+        
+        Dictionary dictionary = new Dictionary();
+        dictionary.create(Volume.MIN_WORD, Volume.MAX_WORD);
+        
+        route = new Route(id, true);
         Network<UUID> messageNetwork = new Network<UUID>(UUID.randomUUID(), MIN_UUID);
         messageNetwork.get(messageNetwork.getRootId()).add(MIN_UUID, route);
         
@@ -69,12 +78,14 @@ public class Node
         profileNetwork.get(profileNetwork.getRootId()).add(MIN_UUID, route);
 
         this.id = id;
-        this.dictionary = new Dictionary();
         this.mapOfArchives = new HashMap<UUID, Archive>();
         this.listOfListeners = new ArrayList<SynapseListener>();
         this.callbacks = new HashMap<UUID, Runnable>();
         this.calledback = new LinkedList<UUID>();
         this.envelopes = new LinkedBlockingQueue<Task>();
+
+        this.tokenNetwork = tokenNetwork;
+        this.dictionary = dictionary;
 
         this.messageNetwork = messageNetwork;
         this.messageStorage = messageStorage;
@@ -125,6 +136,7 @@ public class Node
     public void setURL(URL url)
     {
         this.url = url;
+        getTokenNetwork().get(getTokenNetwork().getRootId()).get(Volume.MIN_WORD).add(url);
         getMessageNetwork().get(getMessageNetwork().getRootId()).get(MIN_UUID).add(url);
         getProfileNetwork().get(getProfileNetwork().getRootId()).get(MIN_UUID).add(url);
     }
@@ -148,6 +160,16 @@ public class Node
             mapOfArchives.put(profileId, archive);
         }
         return archive;
+    }
+    
+    /**
+     * Return the token network for this node.
+     * 
+     * @return The token network.
+     */
+    public Network<String> getTokenNetwork()
+    {
+        return tokenNetwork;
     }
 
     /**

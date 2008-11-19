@@ -3,20 +3,21 @@
 		<collection field="commands">
             <structure type="org.curlybraces.synapse.RouteProfileSynapse"/>
             <structure type="org.curlybraces.synapse.RouteMessageSynapse"/>
+            <structure type="org.curlybraces.synapse.RouteTokenSynapse"/>
 			<structure type="org.curlybraces.synapse.Echo"/>
 			<structure type="org.curlybraces.synapse.Update"/>
 			<structure type="org.curlybraces.synapse.SetProfile"/>
 			<structure type="org.curlybraces.synapse.InjectProfile"/>
 			<structure type="org.curlybraces.synapse.InjectMessage"/>
-			<structure type="org.curlybraces.synapse.InjectTerm"/>
+			<structure type="org.curlybraces.synapse.InjectToken"/>
 			<structure type="org.curlybraces.synapse.Callback"/>
 			<structure type="org.curlybraces.synapse.ExecuteCallback"/>
 		</collection>
 	</mapping>
-    <mapping name="term" class="org.curlybraces.synapse.Term">
-        <value name="id" field="id" deserializer="java.util.UUID.fromString"/>
+    <mapping name="token" class="org.curlybraces.synapse.Token">
+        <value name="messageId" field="messageId" deserializer="java.util.UUID.fromString"/>
         <value name="date" field="date"/>
-        <value name="flag" field="flag"/>
+        <value name="type" field="type"/>
         <value name="word" field="word"/>
     </mapping>
     <mapping name="profile" class="org.curlybraces.synapse.Profile">
@@ -38,6 +39,9 @@
     <mapping name="update" class="org.curlybraces.synapse.Update">
         <structure field="message" type="org.curlybraces.synapse.Message"/>
     </mapping>
+    <mapping name="route-token-message" class="org.curlybraces.synapse.RouteTokenSynapse">
+        <value name="term" field="term"/>
+    </mapping>
     <mapping name="route-profile-message" class="org.curlybraces.synapse.RouteProfileSynapse">
         <value name="profileId" field="profileId" deserializer="java.util.UUID.fromString"/>
     </mapping>
@@ -47,7 +51,9 @@
     <mapping name="inject-profile" class="org.curlybraces.synapse.InjectProfile">
         <structure field="profile" type="org.curlybraces.synapse.Profile"/>
     </mapping>
-    <mapping name="inject-term" class="org.curlybraces.synapse.InjectTerm"/>
+    <mapping name="inject-token" class="org.curlybraces.synapse.InjectToken">
+        <structure field="token" type="org.curlybraces.synapse.Token"/>
+    </mapping>
     <mapping name="inject-message" class="org.curlybraces.synapse.InjectMessage">
         <structure field="message" type="org.curlybraces.synapse.Message"/>
     </mapping>
