@@ -7,9 +7,6 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import com.google.inject.Guice;
-import com.google.inject.Injector;
-
 public class DiscoverTest
 {
     private Server[] servers = new Server[3];
@@ -27,8 +24,7 @@ public class DiscoverTest
             servers[i] = new Server();
             servers[i].setConnectors(new Connector[] { connector });
     
-            Injector injector = Guice.createInjector(new ServletModule());
-            Node node = injector.getInstance(Node.class);
+            Node node = new Node();
             
             servers[i].addHandler(new SynapseJettyHandler(node));
             servers[i].start();

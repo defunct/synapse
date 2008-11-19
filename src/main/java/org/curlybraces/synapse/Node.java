@@ -14,8 +14,6 @@ import java.util.concurrent.LinkedBlockingQueue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.inject.Inject;
-
 public class Node
 {
     private final Logger logger = LoggerFactory.getLogger(Node.class);
@@ -25,10 +23,10 @@ public class Node
     public final UUID MAX_UUID = new UUID(Long.MAX_VALUE, Long.MAX_VALUE);
     
     private final UUID id;
-
+    
     private final Dictionary dictionary;
-
-    private final ArchiveManager archiveManager;
+        
+    private final Map<UUID, InMemoryArchive> mapOfArchives;
 
     private final List<SynapseListener> listOfListeners;
 
@@ -52,8 +50,7 @@ public class Node
 
     private URL url;
 
-    @Inject
-    public Node(Dictionary siloManager, ArchiveManager archiveManager)
+    public Node()
     {
         UUID id = UUID.randomUUID();
         
@@ -72,8 +69,8 @@ public class Node
         profileNetwork.get(profileNetwork.getRootId()).add(MIN_UUID, route);
 
         this.id = id;
-        this.dictionary = siloManager;
-        this.archiveManager = archiveManager;
+        this.dictionary = new Dictionary();
+        this.mapOfArchives = new HashMap<UUID, InMemoryArchive>();
         this.listOfListeners = new ArrayList<SynapseListener>();
         this.callbacks = new HashMap<UUID, Runnable>();
         this.calledback = new LinkedList<UUID>();
@@ -142,9 +139,15 @@ public class Node
         return dictionary;
     }
 
-    public ArchiveManager getArchiveManager()
+    public InMemoryArchive getArchive(UUID profileId)
     {
-        return archiveManager;
+        InMemoryArchive archive = mapOfArchives.get(profileId);
+        if (archive == null)
+        {
+            archive = new InMemoryArchive(profileId);
+            mapOfArchives.put(profileId, archive);
+        }
+        return archive;
     }
 
     /**

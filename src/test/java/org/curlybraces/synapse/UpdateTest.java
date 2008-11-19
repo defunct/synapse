@@ -13,9 +13,6 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import com.google.inject.Guice;
-import com.google.inject.Injector;
-
 public class UpdateTest
 {
     private final static String ID = "7b2fb945-c913-48aa-ad25-346e27c2064b";
@@ -34,8 +31,7 @@ public class UpdateTest
         connector.setSoLingerTime(-1);
         connector.setPort(8888);
         server.setConnectors(new Connector[] { connector });
-        Injector injector = Guice.createInjector(new ServletModule());
-        node = injector.getInstance(Node.class);
+        node = new Node();
 
         node.setURL(new URL("http", "localhost", 8888, "/synapse"));
         node.start();

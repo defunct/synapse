@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-public class InMemoryArchive implements Archive
+public class InMemoryArchive
 {
     private final UUID personId;
     
@@ -29,20 +29,5 @@ public class InMemoryArchive implements Archive
     public Message get(UUID missiveId)
     {
         return mapOfMissives.get(missiveId);
-    }
-    
-    public final static class Builder implements Archive.Builder
-    {
-        private UUID personId;
-        
-        public void setPersonId(UUID personId)
-        {
-            this.personId = personId;
-        }
-        
-        public Archive newArchive()
-        {
-            return new InMemoryArchive(personId);
-        }
     }
 }

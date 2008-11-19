@@ -8,9 +8,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.inject.Guice;
-import com.google.inject.Injector;
-
 /**
  * Ultimately, I'd like to have the ability to listen at the socket, dropping
  * requests immediately, if the service is under attack. If the server gets
@@ -25,8 +22,7 @@ public class SynapseServlet extends HttpServlet
     @Override
     public void init(ServletConfig config) throws ServletException
     {
-        Injector injector = Guice.createInjector(new ServletModule());
-        Node node = injector.getInstance(Node.class);
+        Node node = new Node();
         service = new SynapseService(node);
     }
     

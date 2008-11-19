@@ -10,9 +10,6 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import com.google.inject.Guice;
-import com.google.inject.Injector;
-
 public class JettyHandlerTest
 {
     private Server server = new Server();
@@ -26,8 +23,7 @@ public class JettyHandlerTest
         connector.setPort(8888);
         server.setConnectors(new Connector[] { connector });
 
-        Injector injector = Guice.createInjector(new ServletModule());
-        Node node = injector.getInstance(Node.class);
+        Node node = new Node();
         
         server.addHandler(new SynapseJettyHandler(node));
         server.start();

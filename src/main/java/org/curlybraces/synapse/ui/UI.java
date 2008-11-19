@@ -19,7 +19,6 @@ import javax.swing.UIManager;
 import org.curlybraces.synapse.Envelope;
 import org.curlybraces.synapse.Message;
 import org.curlybraces.synapse.Node;
-import org.curlybraces.synapse.ServletModule;
 import org.curlybraces.synapse.Synapse;
 import org.curlybraces.synapse.SynapseJettyHandler;
 import org.curlybraces.synapse.SynapseListener;
@@ -27,9 +26,6 @@ import org.curlybraces.synapse.Update;
 import org.mortbay.jetty.Connector;
 import org.mortbay.jetty.Server;
 import org.mortbay.jetty.bio.SocketConnector;
-
-import com.google.inject.Guice;
-import com.google.inject.Injector;
 
 public class UI
 {
@@ -50,9 +46,7 @@ public class UI
             System.setProperty("apple.laf.useScreenMenuBar", "true");
         }
 
-        Injector injector = Guice.createInjector(new ServletModule());
-        Node node = injector.getInstance(Node.class);
-        
+        Node node = new Node();
         
         final Server server = new Server();
         SocketConnector connector = new SocketConnector();

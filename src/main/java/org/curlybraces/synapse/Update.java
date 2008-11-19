@@ -34,7 +34,7 @@ public class Update extends Command
      */
     public void execute(final Node node, Synapse synapse)
     {
-        Archive archive = node.getArchiveManager().get(message.getPersonId());
+        InMemoryArchive archive = node.getArchive(message.getPersonId());
         if (archive != null)
         {
             archive.add(message);
