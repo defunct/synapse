@@ -22,6 +22,8 @@ public class Node
     
     public final UUID MIN_UUID = new UUID(Long.MIN_VALUE, Long.MIN_VALUE);
     
+    public final UUID MAX_UUID = new UUID(Long.MAX_VALUE, Long.MAX_VALUE);
+    
     private final UUID id;
 
     private final Dictionary dictionary;
@@ -39,6 +41,10 @@ public class Node
     private final LinkedBlockingQueue<Task> envelopes;
     
     private final Storage<Message> messages;
+    
+    private final Network<UUID> profileNetwork;
+    
+    private final Storage<Profile> profileStorage;
 
     private Thread mailman;
 
@@ -50,11 +56,18 @@ public class Node
         UUID id = UUID.randomUUID();
         
         Storage<Message> messageStorage = new Storage<Message>();
-        messageStorage.create(MIN_UUID, new UUID(Long.MAX_VALUE, Long.MAX_VALUE));
+        messageStorage.create(MIN_UUID, MAX_UUID);
 
         Route route = new Route(id, true);
         Network<UUID> messageNetwork = new Network<UUID>(UUID.randomUUID(), MIN_UUID);
         messageNetwork.get(messageNetwork.getRootId()).add(MIN_UUID, route);
+        
+        Storage<Profile> profileStorage = new Storage<Profile>();
+        profileStorage.create(MIN_UUID, MAX_UUID);
+        
+        route = new Route(id, true);
+        Network<UUID> profileNetwork = new Network<UUID>(UUID.randomUUID(), MIN_UUID);
+        profileNetwork.get(profileNetwork.getRootId()).add(MIN_UUID, route);
 
         this.id = id;
         this.dictionary = siloManager;
@@ -66,6 +79,9 @@ public class Node
 
         this.messageNetwork = messageNetwork;
         this.messages = messageStorage;
+        
+        this.profileNetwork = profileNetwork;
+        this.profileStorage = profileStorage;
     }
 
     public void start()
@@ -111,6 +127,7 @@ public class Node
     {
         this.url = url;
         getMessageNetwork().get(getMessageNetwork().getRootId()).get(MIN_UUID).add(url);
+        getProfileNetwork().get(getProfileNetwork().getRootId()).get(MIN_UUID).add(url);
     }
 
     public URL getURL()
@@ -136,6 +153,16 @@ public class Node
     public Storage<Message> getMessageStorage()
     {
         return messages;
+    }
+    
+    public Network<UUID> getProfileNetwork()
+    {
+        return profileNetwork;
+    }
+    
+    public Storage<Profile> getProfileStorage()
+    {
+        return profileStorage;
     }
 
     /**

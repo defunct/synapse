@@ -1,9 +1,12 @@
 <binding> 
 	<mapping name="synapse" class="org.curlybraces.synapse.Synapse">
 		<collection field="commands">
+            <structure type="org.curlybraces.synapse.RouteProfileSynapse"/>
             <structure type="org.curlybraces.synapse.RouteMessageSynapse"/>
 			<structure type="org.curlybraces.synapse.Echo"/>
 			<structure type="org.curlybraces.synapse.Update"/>
+			<structure type="org.curlybraces.synapse.SetProfile"/>
+			<structure type="org.curlybraces.synapse.InjectProfile"/>
 			<structure type="org.curlybraces.synapse.InjectMessage"/>
 			<structure type="org.curlybraces.synapse.InjectTerm"/>
 			<structure type="org.curlybraces.synapse.Callback"/>
@@ -16,6 +19,10 @@
         <value name="flag" field="flag"/>
         <value name="word" field="word"/>
     </mapping>
+    <mapping name="profile" class="org.curlybraces.synapse.Profile">
+        <value name="id" field="id" deserializer="java.util.UUID.fromString"/>
+        <value name="name" field="name"/>
+    </mapping>
     <mapping name="message" class="org.curlybraces.synapse.Message">
         <value name="id" field="id" deserializer="java.util.UUID.fromString"/>
         <value name="date" field="date"/>
@@ -25,11 +32,20 @@
     <mapping name="echo" class="org.curlybraces.synapse.Echo">
         <value name="message" field="message"/>
     </mapping>
+    <mapping name="set-profile" class="org.curlybraces.synapse.SetProfile">
+        <structure field="profile" type="org.curlybraces.synapse.Profile"/>
+    </mapping>
     <mapping name="update" class="org.curlybraces.synapse.Update">
         <structure field="message" type="org.curlybraces.synapse.Message"/>
     </mapping>
+    <mapping name="route-profile-message" class="org.curlybraces.synapse.RouteProfileSynapse">
+        <value name="profileId" field="profileId" deserializer="java.util.UUID.fromString"/>
+    </mapping>
     <mapping name="routeroute" class="org.curlybraces.synapse.RouteMessageSynapse">
         <value name="messageId" field="messageId" deserializer="java.util.UUID.fromString"/>
+    </mapping>
+    <mapping name="inject-profile" class="org.curlybraces.synapse.InjectProfile">
+        <structure field="profile" type="org.curlybraces.synapse.Profile"/>
     </mapping>
     <mapping name="inject-term" class="org.curlybraces.synapse.InjectTerm"/>
     <mapping name="inject-message" class="org.curlybraces.synapse.InjectMessage">
