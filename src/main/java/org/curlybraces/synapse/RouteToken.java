@@ -1,15 +1,15 @@
 package org.curlybraces.synapse;
 
 
-public class RouteTokenSynapse extends Command
+public class RouteToken extends Command
 {
     private String term;
     
-    public RouteTokenSynapse()
+    public RouteToken()
     {
     }
     
-    public RouteTokenSynapse(String term)
+    public RouteToken(String term)
     {
         this.term = term;
     }
@@ -22,7 +22,7 @@ public class RouteTokenSynapse extends Command
         Route route = router.get(term);
         if (!route.isLeaf())
         {
-            synapse.shift(new RouteTokenSynapse(term));
+            synapse.shift(new RouteToken(term));
         }
         node.sendCommand(route.get(synapse), synapse);
     }

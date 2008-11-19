@@ -1,9 +1,9 @@
 <binding> 
 	<mapping name="synapse" class="org.curlybraces.synapse.Synapse">
 		<collection field="commands">
-            <structure type="org.curlybraces.synapse.RouteProfileSynapse"/>
-            <structure type="org.curlybraces.synapse.RouteMessageSynapse"/>
-            <structure type="org.curlybraces.synapse.RouteTokenSynapse"/>
+            <structure type="org.curlybraces.synapse.RouteProfile"/>
+            <structure type="org.curlybraces.synapse.RouteMessage"/>
+            <structure type="org.curlybraces.synapse.RouteToken"/>
 			<structure type="org.curlybraces.synapse.Echo"/>
 			<structure type="org.curlybraces.synapse.Update"/>
 			<structure type="org.curlybraces.synapse.SetProfile"/>
@@ -39,13 +39,13 @@
     <mapping name="update" class="org.curlybraces.synapse.Update">
         <structure field="message" type="org.curlybraces.synapse.Message"/>
     </mapping>
-    <mapping name="route-token-message" class="org.curlybraces.synapse.RouteTokenSynapse">
+    <mapping name="route-token" class="org.curlybraces.synapse.RouteToken">
         <value name="term" field="term"/>
     </mapping>
-    <mapping name="route-profile-message" class="org.curlybraces.synapse.RouteProfileSynapse">
+    <mapping name="route-profile" class="org.curlybraces.synapse.RouteProfile">
         <value name="profileId" field="profileId" deserializer="java.util.UUID.fromString"/>
     </mapping>
-    <mapping name="routeroute" class="org.curlybraces.synapse.RouteMessageSynapse">
+    <mapping name="route-message" class="org.curlybraces.synapse.RouteMessage">
         <value name="messageId" field="messageId" deserializer="java.util.UUID.fromString"/>
     </mapping>
     <mapping name="inject-profile" class="org.curlybraces.synapse.InjectProfile">

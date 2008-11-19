@@ -47,7 +47,7 @@ public class Update extends Command
         for (Token token : tokens)
         {
             UUID callbackId = node.newCallback(new UpdateCallback(listener));
-            Synapse inject = new Synapse(new RouteTokenSynapse(token.toTerm()),
+            Synapse inject = new Synapse(new RouteToken(token.toTerm()),
                                          new InjectToken(token),
                                          new Callback(node.getURL()),
                                          new ExecuteCallback(callbackId));
@@ -55,7 +55,7 @@ public class Update extends Command
         }
         
         UUID callbackId = node.newCallback(new UpdateCallback(listener));
-        Synapse inject = new Synapse(new RouteMessageSynapse(message.getId()),
+        Synapse inject = new Synapse(new RouteMessage(message.getId()),
                                      new InjectMessage(message),
                                      new Callback(node.getURL()),
                                      new ExecuteCallback(callbackId));

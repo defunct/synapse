@@ -19,7 +19,7 @@ public class SetProfile extends Command
     public void execute(Node node, Synapse synapse)
     {
         UUID callbackId = node.newCallback(new SetProfileCallback(node, profile));
-        Synapse inject = new Synapse(new RouteProfileSynapse(profile.getId()),
+        Synapse inject = new Synapse(new RouteProfile(profile.getId()),
                                      new InjectProfile(profile),
                                      new Callback(node.getURL()),
                                      new ExecuteCallback(callbackId));

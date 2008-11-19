@@ -2,17 +2,17 @@ package org.curlybraces.synapse;
 
 import java.util.UUID;
 
-public class RouteProfileSynapse extends Command
+public class RouteMessage extends Command
 {
-    private UUID profileId;
+    private UUID messageId;
     
-    public RouteProfileSynapse()
+    public RouteMessage()
     {
     }
     
-    public RouteProfileSynapse(UUID profileId)
+    public RouteMessage(UUID messageId)
     {
-        this.profileId = profileId;
+        this.messageId = messageId;
     }
     
     @Override
@@ -20,16 +20,16 @@ public class RouteProfileSynapse extends Command
     {
         return false;
     }
-    
+
     @Override
     public void execute(Node node, Synapse synapse)
     {
-        Network<UUID> messages = node.getProfileNetwork();
+        Network<UUID> messages = node.getMessageNetwork();
         Router<UUID> router = messages.get(messages.getRootId());
-        Route route = router.get(profileId);
+        Route route = router.get(messageId);
         if (!route.isLeaf())
         {
-            synapse.shift(new RouteProfileSynapse(profileId));
+            synapse.shift(new RouteMessage(messageId));
         }
         node.sendCommand(route.get(synapse), synapse);
     }
