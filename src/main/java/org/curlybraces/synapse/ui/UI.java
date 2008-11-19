@@ -86,7 +86,7 @@ public class UI
                 
                 missive.setId(UUID.randomUUID());
                 missive.setDate(new Date());
-                missive.setPersonId(UUID.randomUUID());
+                missive.setProfileId(UUID.randomUUID());
                 missive.setText(text);
                 
                 Update update = new Update(missive);

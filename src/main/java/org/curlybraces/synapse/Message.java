@@ -7,7 +7,7 @@ public class Message
 {
     private UUID id;
     
-    private UUID personId;
+    private UUID profileId;
     
     private Date date;
     
@@ -32,19 +32,19 @@ public class Message
         return id;
     }
     
-    public void setPersonId(UUID personId)
+    public void setProfileId(UUID profileId)
     {
-        this.personId = personId;
+        this.profileId = profileId;
     }
     
-    public void setPersonId(String personId)
+    public void setPersonId(String profileId)
     {
-        setPersonId(UUID.fromString(personId));
+        setProfileId(UUID.fromString(profileId));
     }
     
-    public UUID getPersonId()
+    public UUID getProfileId()
     {
-        return personId;
+        return profileId;
     }
     
     public void setDate(Date date)

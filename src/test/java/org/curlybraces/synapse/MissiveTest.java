@@ -29,6 +29,6 @@ public class MissiveTest
         assertEquals(missive.getId().toString(), ID);
         assertEquals(missive.getDate(), DATE);
         assertEquals(missive.getText(), "This is a test.");
-        assertEquals(missive.getPersonId().toString(), PERSON_ID);
+        assertEquals(missive.getProfileId().toString(), PERSON_ID);
     }
 }
