@@ -222,7 +222,10 @@ public class Node
      */
     public void addListener(NodeListener listener)
     {
-        listOfListeners.add(listener);
+        synchronized (listOfListeners)
+        {
+            listOfListeners.add(listener);
+        }
     }
 
     /**
@@ -234,8 +237,11 @@ public class Node
      */
     public void removeListener(NodeListener listener)
     {
-        while (listOfListeners.remove(listener))
+        synchronized (listOfListeners)
         {
+            while (listOfListeners.remove(listener))
+            {
+            }
         }
     }
 
@@ -247,7 +253,12 @@ public class Node
      */
     public Collection<NodeListener> listeners()
     {
-        return Collections.unmodifiableCollection(listOfListeners);
+        List<NodeListener> copy;
+        synchronized (listOfListeners)
+        {
+            copy = new ArrayList<NodeListener>(listOfListeners);
+        }
+        return copy;
     }
 
     public UUID newCallback(Runnable runnable)

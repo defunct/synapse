@@ -27,7 +27,7 @@
     <mapping name="message" class="org.curlybraces.synapse.Message">
         <value name="id" field="id" deserializer="java.util.UUID.fromString"/>
         <value name="date" field="date"/>
-        <value name="personId" field="personId" deserializer="java.util.UUID.fromString"/>
+        <value name="profile-id" field="profileId" deserializer="java.util.UUID.fromString"/>
         <value name="text" field="text"/>
     </mapping>
     <mapping name="echo" class="org.curlybraces.synapse.Echo">
