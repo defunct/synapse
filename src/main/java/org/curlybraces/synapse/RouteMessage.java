@@ -15,12 +15,6 @@ public class RouteMessage extends Command
         super(stamp);
         this.messageId = messageId;
     }
-    
-    @Override
-    public boolean isTerminal()
-    {
-        return false;
-    }
 
     @Override
     public void execute(Node node, SynapseQueue queue, Synapse synapse)

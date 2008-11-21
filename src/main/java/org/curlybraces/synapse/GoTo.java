@@ -19,12 +19,6 @@ extends Command
     }
     
     @Override
-    public boolean isTerminal()
-    {
-        return false;
-    }
-    
-    @Override
     public void execute(Node node, SynapseQueue queue, Synapse synapse)
     {
         queue.enqueue(url, synapse);

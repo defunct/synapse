@@ -17,12 +17,6 @@ public class RouteProfile extends Command
     }
     
     @Override
-    public boolean isTerminal()
-    {
-        return false;
-    }
-    
-    @Override
     public void execute(Node node, SynapseQueue queue, Synapse synapse)
     {
         Network<UUID> messages = node.getProfileNetwork();

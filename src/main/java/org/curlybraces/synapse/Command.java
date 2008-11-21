@@ -5,8 +5,9 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 
 /**
- * This class is not abstract, only because I couldn't see how to specify
- * an abstract class in JiBX.
+ * Base type for all commands that are exchanged between nodes over the wire
+ * within synapses.
+ * 
  * @author Alan Gutierrez
  */
 public abstract class Command
@@ -16,30 +17,24 @@ public abstract class Command
      * signs a command.
      */
     private Stamp stamp;
-    
+   
+    /**
+     * Default constructor used by serialization libraries.
+     */
     public Command()
     {
     }
-    
+
+    /**
+     * Create a new command with the specified stamp that will uniquely identify
+     * the command.
+     * 
+     * @param stamp
+     *            A stamp.
+     */
     protected Command(Stamp stamp)
     {
         this.stamp = stamp;
-    }
-
-    /**
-     * Return true if this command is the culmination of series of commands,
-     * return false if it is a step toward resolving a command. When a terminal
-     * command is reached, the {@link Synapse#execute(Node)} method will begin
-     * the next series of execution by sending the command to the currently
-     * active node.
-     * 
-     * FIXME Delete this.
-     * 
-     * @return True if this is a terminal command.
-     */
-    public boolean isTerminal()
-    {
-        return true;
     }
     
     public byte[] getSignatureArray()
@@ -70,5 +65,16 @@ public abstract class Command
     {
     }
 
+    /**
+     * Super classes implement this method to take a specific action based on
+     * the type of command.
+     * 
+     * @param node
+     *            The local node.
+     * @param queue
+     *            A queue of synapses to be executed by the local node.
+     * @param synapse
+     *            The currently executing synapse.
+     */
     public abstract void execute(Node node, SynapseQueue queue, Synapse synapse);
 }
