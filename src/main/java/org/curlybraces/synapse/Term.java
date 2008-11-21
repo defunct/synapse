@@ -8,8 +8,7 @@ public class Term implements Comparable<Term>
     
     public final static short KEYWORD = 1;
     
-    // FIXME Profile id.
-    public final static short USER = 2;
+    public final static short PROFILE_ID = 2;
     
     public final static short SHORTENED_URL = 3;
     
@@ -85,7 +84,7 @@ public class Term implements Comparable<Term>
         {
         case Term.KEYWORD:
             return getWord();
-        case Term.USER:
+        case Term.PROFILE_ID:
             return '>' + getWord();
         case Term.SHORTENED_URL:
             return ';' + getWord();
