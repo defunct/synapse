@@ -3,23 +3,27 @@ package org.curlybraces.synapse;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.util.Date;
-import java.util.UUID;
 
+/**
+ * This class is not abstract, only because I couldn't see how to specify
+ * an abstract class in JiBX.
+ * @author Alan Gutierrez
+ */
 public abstract class Command
 {
-    private UUID id;
-    
-    private Date date;
+    /**
+     * This stamp is used so that there's something to bite into when a node
+     * signs a command.
+     */
+    private Stamp stamp;
     
     public Command()
     {
     }
     
-    protected Command(UUID id, Date date)
+    protected Command(Stamp stamp)
     {
-        this.id = id;
-        this.date = date;
+        this.stamp = stamp;
     }
 
     /**
@@ -29,6 +33,8 @@ public abstract class Command
      * the next series of execution by sending the command to the currently
      * active node.
      * 
+     * FIXME Delete this.
+     * 
      * @return True if this is a terminal command.
      */
     public boolean isTerminal()
@@ -36,16 +42,6 @@ public abstract class Command
         return true;
     }
     
-    public UUID getId()
-    {
-        return id;
-    }
-    
-    public Date getDate()
-    {
-        return date;
-    }
-
     public byte[] getSignatureArray()
     {
         ByteArrayOutputStream out = new ByteArrayOutputStream();
@@ -57,12 +53,12 @@ public abstract class Command
             {
                 data.writeChar(className.charAt(i));
             }
-            String id = getId().toString();
+            String id = stamp.getId().toString();
             for (int i = 0; i < id.length(); i++)
             {
                 data.writeChar(id.charAt(i));
             }
-            data.writeLong(date.getTime());
+            data.writeLong(stamp.getDate().getTime());
         }
         catch (IOException e)
         {

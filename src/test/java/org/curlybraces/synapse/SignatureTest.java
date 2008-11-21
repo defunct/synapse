@@ -40,7 +40,7 @@ public class SignatureTest
         PublicKey pubk = kp.getPublic();
         PrivateKey prvk = kp.getPrivate();
 
-        Echo echo = new Echo("Hello, World!");
+        Echo echo = new Echo(new Node().newStamp(), "Hello, World!");
         
         byte[] sigbytes = sign(echo, prvk, "SHAwithDSA");
 

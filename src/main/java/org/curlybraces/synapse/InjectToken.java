@@ -8,21 +8,22 @@ public class InjectToken extends Command
     {
     }
 
-    public InjectToken(Token token)
+    public InjectToken(Stamp stamp, Token token)
     {
+        super(stamp);
         this.token = token;
     }
     
     @Override
     public void execute(Node node, SynapseQueue queue, Synapse synapse)
     {
-        String term = token.toTerm();
+        Term term = token.getTerm();
         Dictionary dictionary = node.getDictionary();
         Volume volume = dictionary.get(term);
         Entry entry = volume.get(term);
         if (entry == null)
         {
-            entry = new Entry(token.getWord(), token.getType());
+            entry = new Entry(term);
             volume.put(term, entry);
         }
         entry.add(token.getDate(), token.getMessageId());

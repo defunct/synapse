@@ -5,22 +5,22 @@ import java.util.TreeMap;
 
 public class Dictionary
 {
-    private final SortedMap<String, Volume> mapOfVolumes;
+    private final SortedMap<Term, Volume> mapOfVolumes;
     
     public Dictionary()
     {
-        this.mapOfVolumes = new TreeMap<String, Volume>(new Reverse<String>());
+        this.mapOfVolumes = new TreeMap<Term, Volume>(new Reverse<Term>());
     }
     
-    public void create(String min, String max)
+    public void create(Term min, Term max)
     {
         Volume volume = new Volume(max);
         mapOfVolumes.put(min, volume);
     }
 
-    public Volume get(String term)
+    public Volume get(Term term)
     {
-        SortedMap<String, Volume> tail = mapOfVolumes.tailMap(term);
+        SortedMap<Term, Volume> tail = mapOfVolumes.tailMap(term);
         
         if (tail.size() != 0)
         {

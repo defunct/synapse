@@ -3,17 +3,18 @@ package org.curlybraces.synapse;
 import java.net.URL;
 
 
-public class Callback
+public class GoTo
 extends Command
 {
     private URL url;
     
-    public Callback()
+    public GoTo()
     {
     }
     
-    public Callback(URL url)
+    public GoTo(Stamp stamp, URL url)
     {
+        super(stamp);
         this.url = url;
     }
     

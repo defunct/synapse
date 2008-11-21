@@ -10,8 +10,9 @@ public class RouteMessage extends Command
     {
     }
     
-    public RouteMessage(UUID messageId)
+    public RouteMessage(Stamp stamp, UUID messageId)
     {
+        super(stamp);
         this.messageId = messageId;
     }
     
@@ -29,7 +30,7 @@ public class RouteMessage extends Command
         Route route = router.get(messageId);
         if (!route.isLeaf())
         {
-            synapse.shift(new RouteMessage(messageId));
+            synapse.shift(new RouteMessage(node.newStamp(), messageId));
         }
         queue.enqueue(route.get(synapse), synapse);
     }

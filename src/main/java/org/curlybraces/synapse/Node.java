@@ -3,8 +3,8 @@ package org.curlybraces.synapse;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -23,11 +23,15 @@ public class Node
 
     private final List<NodeListener> listOfListeners;
 
-    private final Map<UUID, Runnable> callbacks;
+    private final CallbackMap<Runnable> voidCallbacks;
+    
+    private final CallbackMap<TokenCallback> tokenCallbacks;
+    
+    private final CallbackMap<MessageCallback> messageCallbacks;
+    
+    private final CallbackMap<ProfileCallback> profileCallbacks;
 
-    private final LinkedList<UUID> calledback;
-
-    private final Network<String> tokenNetwork;
+    private final Network<Term> tokenNetwork;
     
     /** The message network. */
     private final Network<UUID> messageNetwork;
@@ -49,11 +53,11 @@ public class Node
         messageStorage.create(MIN_UUID, MAX_UUID);
 
         Route route = new Route(id, true);
-        Network<String> tokenNetwork = new Network<String>(UUID.randomUUID(), "");
-        tokenNetwork.get(tokenNetwork.getRootId()).add("", route);
+        Network<Term> tokenNetwork = new Network<Term>(UUID.randomUUID(), Term.MIN_TERM);
+        tokenNetwork.get(tokenNetwork.getRootId()).add(Term.MIN_TERM, route);
         
         Dictionary dictionary = new Dictionary();
-        dictionary.create(Volume.MIN_WORD, Volume.MAX_WORD);
+        dictionary.create(Term.MIN_TERM, Term.MAX_TERM);
         
         route = new Route(id, true);
         Network<UUID> messageNetwork = new Network<UUID>(UUID.randomUUID(), MIN_UUID);
@@ -69,8 +73,11 @@ public class Node
         this.id = id;
         this.mapOfArchives = new HashMap<UUID, Archive>();
         this.listOfListeners = new ArrayList<NodeListener>();
-        this.callbacks = new HashMap<UUID, Runnable>();
-        this.calledback = new LinkedList<UUID>();
+
+        this.voidCallbacks = new CallbackMap<Runnable>();
+        this.tokenCallbacks = new CallbackMap<TokenCallback>();
+        this.messageCallbacks = new CallbackMap<MessageCallback>();
+        this.profileCallbacks = new CallbackMap<ProfileCallback>();
 
         this.tokenNetwork = tokenNetwork;
         this.dictionary = dictionary;
@@ -90,9 +97,19 @@ public class Node
     public void setURL(URL url)
     {
         this.url = url;
-        getTokenNetwork().get(getTokenNetwork().getRootId()).get(Volume.MIN_WORD).add(url);
+        getTokenNetwork().get(getTokenNetwork().getRootId()).get(Term.MIN_TERM).add(url);
         getMessageNetwork().get(getMessageNetwork().getRootId()).get(MIN_UUID).add(url);
         getProfileNetwork().get(getProfileNetwork().getRootId()).get(MIN_UUID).add(url);
+    }
+    
+    public UUID newUUID()
+    {
+        return UUID.randomUUID();
+    }
+    
+    public Stamp newStamp()
+    {
+        return new Stamp(UUID.randomUUID(), new Date());
     }
 
     public URL getURL()
@@ -103,6 +120,16 @@ public class Node
     public void execute(Synapse synapse)
     {
         new NodeExecutor(this, synapse).execute();
+    }
+    
+    public void update(Message message)
+    {
+        new NodeExecutor(this, new Synapse(new Update(newStamp(), message))).execute();
+    }
+    
+    public void search(MatchAll search, NodeListener listener)
+    {
+        new MergeAll(this, search, 3, listener).next();
     }
 
     public Dictionary getDictionary()
@@ -126,7 +153,7 @@ public class Node
      * 
      * @return The token network.
      */
-    public Network<String> getTokenNetwork()
+    public Network<Term> getTokenNetwork()
     {
         return tokenNetwork;
     }
@@ -219,25 +246,24 @@ public class Node
         }
         return copy;
     }
-
-    public UUID newCallback(Runnable runnable)
+    
+    public CallbackMap<Runnable> getVoidCallbacks()
     {
-        UUID callbackId = UUID.randomUUID();
-        callbacks.put(callbackId, runnable);
-        return callbackId;
+        return voidCallbacks;
     }
-
-    public void callback(UUID callbackId)
+    
+    public CallbackMap<TokenCallback> getTokenCallbacks()
     {
-        Runnable runnable = callbacks.remove(callbackId);
-        if (runnable != null)
-        {
-            if (calledback.size() == 256)
-            {
-                calledback.removeFirst();
-            }
-            calledback.addLast(callbackId);
-            runnable.run();
-        }
+        return tokenCallbacks;
+    }
+    
+    public CallbackMap<MessageCallback> getMessageCallbacks()
+    {
+        return messageCallbacks;
+    }
+    
+    public CallbackMap<ProfileCallback> getProfileCallbacks()
+    {
+        return profileCallbacks;
     }
 }

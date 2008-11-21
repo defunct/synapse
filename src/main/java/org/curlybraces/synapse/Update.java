@@ -1,6 +1,5 @@
 package org.curlybraces.synapse;
 
-import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -12,9 +11,9 @@ public class Update extends Command
     {
     }
 
-    public Update(Message message)
+    public Update(Stamp stamp, Message message)
     {
-        super(UUID.randomUUID(), new Date());
+        super(stamp);
         this.message = message;
     }
 
@@ -48,19 +47,23 @@ public class Update extends Command
         UpdateListener listener = new UpdateListener(node, message, tokens.size() + 1);
         for (Token token : tokens)
         {
-            UUID callbackId = node.newCallback(new UpdateCallback(listener));
-            Synapse inject = new Synapse(new RouteToken(token.toTerm()),
-                                         new InjectToken(token),
-                                         new Callback(node.getURL()),
-                                         new ExecuteCallback(callbackId));
+            UUID callbackId = node.newUUID();
+            node.getVoidCallbacks().put(callbackId, new UpdateCallback(listener));
+            Synapse inject = new Synapse(
+                    new RouteToken(node.newStamp(), token.getTerm()),
+                    new InjectToken(node.newStamp(), token),
+                    new GoTo(node.newStamp(), node.getURL()),
+                    new ExecuteCallback(node.newStamp(), callbackId));
             queue.enqueue(inject);
         }
         
-        UUID callbackId = node.newCallback(new UpdateCallback(listener));
-        Synapse inject = new Synapse(new RouteMessage(message.getId()),
-                                     new InjectMessage(message),
-                                     new Callback(node.getURL()),
-                                     new ExecuteCallback(callbackId));
+        UUID callbackId = node.newUUID();
+        node.getVoidCallbacks().put(callbackId, new UpdateCallback(listener));
+        Synapse inject = new Synapse(
+                new RouteMessage(node.newStamp(), message.getId()),
+                new InjectMessage(node.newStamp(), message),
+                new GoTo(node.newStamp(), node.getURL()),
+                new ExecuteCallback(node.newStamp(), callbackId));
         queue.enqueue(inject);
     }
 }

@@ -36,7 +36,7 @@ public class JettyHandlerTest
     @Test public void test() throws Exception 
     {
         URL url = URI.create("http://localhost:8888/synapse").toURL();
-        Synapse synapse = new Synapse(new Echo("Hello, World!"));
+        Synapse synapse = new Synapse(new Echo(new Node().newStamp(), "Hello, World!"));
         
         new Envelope(url, synapse).send();
         

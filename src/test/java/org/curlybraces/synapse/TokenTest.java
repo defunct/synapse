@@ -22,8 +22,10 @@ public class TokenTest
         "<token>" +
             "<message-id>7b2fb945-c913-48aa-ad25-346e27c2064b</message-id>" +
             "<date>2008-11-12T01:28:00.48Z</date>" +
-            "<type>1</type>" +
-            "<word>Obama</word>" +
+            "<term>" +
+                "<word>Obama</word>" +
+                "<type>1</type>" +
+            "</term>" +
         "</token>";
 
     @Test public void setters()
@@ -31,12 +33,11 @@ public class TokenTest
         Token token = new Token();
         token.setId(ID);
         token.setDate(DATE);
-        token.setType(Token.KEYWORD);
-        token.setWord("Obama");
+        token.setTerm(new Term("Obama", Term.KEYWORD));
         assertEquals(token.getMessageId().toString(), ID);
         assertEquals(token.getDate(), DATE);
-        assertEquals(token.getType(), Token.KEYWORD);
-        assertEquals(token.getWord(), "Obama");
+        assertEquals(token.getTerm().getType(), Term.KEYWORD);
+        assertEquals(token.getTerm().getWord(), "Obama");
     }
     
     @Test public void marshall() throws Exception
@@ -48,8 +49,7 @@ public class TokenTest
 
         token.setId(ID);
         token.setDate(DATE);
-        token.setType(Token.KEYWORD);
-        token.setWord("Obama");
+        token.setTerm(new Term("Obama", Term.KEYWORD));
 
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         m.marshalDocument(token, "UTF-8", null, out);
@@ -63,7 +63,7 @@ public class TokenTest
         Token term = (Token) uctx.unmarshalDocument(new StringReader(XML));
         assertEquals(term.getMessageId().toString(), ID);
         assertEquals(term.getDate(), DATE);
-        assertEquals(term.getType(), Token.KEYWORD);
-        assertEquals(term.getWord(), "Obama");
+        assertEquals(term.getTerm().getType(), Term.KEYWORD);
+        assertEquals(term.getTerm().getWord(), "Obama");
     }
 }

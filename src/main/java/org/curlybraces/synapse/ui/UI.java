@@ -87,7 +87,7 @@ public class UI
                 missive.setProfileId(UUID.randomUUID());
                 missive.setText(text);
                 
-                Update update = new Update(missive);
+                Update update = new Update(node.newStamp(), missive);
                 Synapse synapse = new Synapse(update);
                 new NodeExecutor(node, synapse).execute();
             }

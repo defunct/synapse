@@ -10,8 +10,9 @@ public class RouteProfile extends Command
     {
     }
     
-    public RouteProfile(UUID profileId)
+    public RouteProfile(Stamp stamp, UUID profileId)
     {
+        super(stamp);
         this.profileId = profileId;
     }
     
@@ -29,7 +30,7 @@ public class RouteProfile extends Command
         Route route = router.get(profileId);
         if (!route.isLeaf())
         {
-            synapse.shift(new RouteProfile(profileId));
+            synapse.shift(new RouteProfile(node.newStamp(), profileId));
         }
         queue.enqueue(route.get(synapse), synapse);
     }

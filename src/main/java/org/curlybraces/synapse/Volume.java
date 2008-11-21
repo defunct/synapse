@@ -5,19 +5,14 @@ import java.util.TreeMap;
 
 public class Volume
 {
-    /** The minimum value for a word. */
-    public final static String MIN_WORD = "";
-    
-    public final static String MAX_WORD = "\uffff\0";
-    
-    private final Map<String, Entry> mapOfEntries;
+    private final Map<Term, Entry> mapOfEntries;
 
-    private final String end;
+    private final Term end;
 
-    public Volume(String end)
+    public Volume(Term end)
     {
         this.end = end;
-        this.mapOfEntries = new TreeMap<String, Entry>();
+        this.mapOfEntries = new TreeMap<Term, Entry>();
     }
 
     /**
@@ -26,7 +21,7 @@ public class Volume
      * 
      * @return The end value.
      */
-    public String getEnd()
+    public Term getEnd()
     {
         return end;
     }
@@ -39,7 +34,7 @@ public class Volume
      * @param entry
      *            The entry.
      */
-    public void put(String term, Entry entry)
+    public void put(Term term, Entry entry)
     {
         mapOfEntries.put(term, entry);
     }
@@ -52,7 +47,7 @@ public class Volume
      * @return The entry for the term, or <code>null</code> if the term is not
      *         present in this volume.
      */
-    public Entry get(String term)
+    public Entry get(Term term)
     {
         return mapOfEntries.get(term);
     }

@@ -33,8 +33,10 @@ public class ServletTest
     
     @Test public void test() throws Exception 
     {
+        Node node = new Node();
+
         URL url = new URL("http", "localhost", 8888, "/synapse");
-        Synapse synapse = new Synapse(new Echo("Hello, World!"));
+        Synapse synapse = new Synapse(new Echo(node.newStamp(), "Hello, World!"));
 
         new Envelope(url, synapse).send();
         

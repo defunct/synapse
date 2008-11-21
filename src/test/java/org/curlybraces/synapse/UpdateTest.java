@@ -19,6 +19,8 @@ public class UpdateTest
     
     private final static Date DATE = new Date(1226453280480L);
 
+    private final static String PERSON_ID = "4d7101d0-ccdf-4599-8132-4fb81158ace3";
+
     private final Server server = new Server();
     
     private Node node;
@@ -45,7 +47,7 @@ public class UpdateTest
         
         missive.setId(ID);
         missive.setDate(DATE);
-        missive.setPersonId(ID);
+        missive.setProfileId(PERSON_ID);
         missive.setText("This is a test.");
         
         final LinkedBlockingQueue<String> queue = new LinkedBlockingQueue<String>();
@@ -65,7 +67,7 @@ public class UpdateTest
             }
         });
 
-        new Envelope(node.getURL(), new Synapse(new Update(missive))).send();
+        new Envelope(node.getURL(), new Synapse(new Update(node.newStamp(), missive))).send();
 
         String done = queue.take();
         assertEquals(done, "done");

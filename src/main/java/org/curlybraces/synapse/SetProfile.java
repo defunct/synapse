@@ -18,11 +18,12 @@ public class SetProfile extends Command
     @Override
     public void execute(Node node, SynapseQueue queue, Synapse synapse)
     {
-        UUID callbackId = node.newCallback(new SetProfileCallback(node, profile));
-        Synapse inject = new Synapse(new RouteProfile(profile.getId()),
-                                     new InjectProfile(profile),
-                                     new Callback(node.getURL()),
-                                     new ExecuteCallback(callbackId));
+        UUID callbackId = node.newUUID();
+        node.getVoidCallbacks().put(callbackId, new SetProfileCallback(node, profile));
+        Synapse inject = new Synapse(new RouteProfile(node.newStamp(), profile.getId()),
+                                     new InjectProfile(node.newStamp(), profile),
+                                     new GoTo(node.newStamp(), node.getURL()),
+                                     new ExecuteCallback(node.newStamp(), callbackId));
         queue.enqueue(inject);
     }
 }

@@ -9,8 +9,9 @@ extends Command
     {
     }
     
-    public InjectMessage(Message missive)
+    public InjectMessage(Stamp stamp, Message missive)
     {
+        super(stamp);
         this.message = missive;
     }
     

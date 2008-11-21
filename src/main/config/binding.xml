@@ -1,4 +1,4 @@
-<binding> 
+<binding>
 	<mapping name="synapse" class="org.curlybraces.synapse.Synapse">
 		<collection field="commands">
             <structure type="org.curlybraces.synapse.RouteProfile"/>
@@ -10,15 +10,21 @@
 			<structure type="org.curlybraces.synapse.InjectProfile"/>
 			<structure type="org.curlybraces.synapse.InjectMessage"/>
 			<structure type="org.curlybraces.synapse.InjectToken"/>
-			<structure type="org.curlybraces.synapse.Callback"/>
+			<structure type="org.curlybraces.synapse.GoTo"/>
 			<structure type="org.curlybraces.synapse.ExecuteCallback"/>
+			<structure type="org.curlybraces.synapse.ExecuteTokenCallback"/>
+			<structure type="org.curlybraces.synapse.ExecuteMessageCallback"/>
+			<structure type="org.curlybraces.synapse.ExecuteProfileCallback"/>
 		</collection>
 	</mapping>
     <mapping name="token" class="org.curlybraces.synapse.Token">
         <value name="message-id" field="messageId" deserializer="java.util.UUID.fromString"/>
         <value name="date" field="date"/>
-        <value name="type" field="type"/>
+        <structure field="term" type="org.curlybraces.synapse.Term"/>
+    </mapping>
+    <mapping name="term" class="org.curlybraces.synapse.Term">
         <value name="word" field="word"/>
+        <value name="type" field="type"/>
     </mapping>
     <mapping name="profile" class="org.curlybraces.synapse.Profile">
         <value name="id" field="id" deserializer="java.util.UUID.fromString"/>
@@ -30,39 +36,73 @@
         <value name="profile-id" field="profileId" deserializer="java.util.UUID.fromString"/>
         <value name="text" field="text"/>
     </mapping>
-    <mapping name="echo" class="org.curlybraces.synapse.Echo">
+    <mapping name="command" abstract="true" class="org.curlybraces.synapse.Command">
+        <structure field="stamp" type="org.curlybraces.synapse.Stamp"/>
+    </mapping>
+    <mapping name="echo" class="org.curlybraces.synapse.Echo"
+                         extends="org.curlybraces.synapse.Command">
         <value name="message" field="message"/>
     </mapping>
-    <mapping name="set-profile" class="org.curlybraces.synapse.SetProfile">
+    <mapping name="set-profile" class="org.curlybraces.synapse.SetProfile"
+                         extends="org.curlybraces.synapse.Command">
         <structure field="profile" type="org.curlybraces.synapse.Profile"/>
     </mapping>
-    <mapping name="update" class="org.curlybraces.synapse.Update">
+    <mapping name="update" class="org.curlybraces.synapse.Update"
+                         extends="org.curlybraces.synapse.Command">
         <structure field="message" type="org.curlybraces.synapse.Message"/>
     </mapping>
-    <mapping name="route-token" class="org.curlybraces.synapse.RouteToken">
-        <value name="term" field="term"/>
+    <mapping name="route-token" class="org.curlybraces.synapse.RouteToken"
+                         extends="org.curlybraces.synapse.Command">
+        <structure field="term" type="org.curlybraces.synapse.Term"/>
     </mapping>
-    <mapping name="route-profile" class="org.curlybraces.synapse.RouteProfile">
+    <mapping name="stamp" class="org.curlybraces.synapse.Stamp">
+        <value name="id" field="id" deserializer="java.util.UUID.fromString"/>
+        <value name="date" field="date"/>
+    </mapping>
+    <mapping name="route-profile" class="org.curlybraces.synapse.RouteProfile"
+                         extends="org.curlybraces.synapse.Command">
         <value name="profileId" field="profileId" deserializer="java.util.UUID.fromString"/>
     </mapping>
-    <mapping name="route-message" class="org.curlybraces.synapse.RouteMessage">
+    <mapping name="route-message" class="org.curlybraces.synapse.RouteMessage"
+                         extends="org.curlybraces.synapse.Command">
         <value name="messageId" field="messageId" deserializer="java.util.UUID.fromString"/>
     </mapping>
-    <mapping name="inject-profile" class="org.curlybraces.synapse.InjectProfile">
+    <mapping name="inject-profile" class="org.curlybraces.synapse.InjectProfile"
+                         extends="org.curlybraces.synapse.Command">
         <structure field="profile" type="org.curlybraces.synapse.Profile"/>
     </mapping>
-    <mapping name="inject-token" class="org.curlybraces.synapse.InjectToken">
+    <mapping name="inject-token" class="org.curlybraces.synapse.InjectToken"
+                         extends="org.curlybraces.synapse.Command">
         <structure field="token" type="org.curlybraces.synapse.Token"/>
     </mapping>
-    <mapping name="inject-message" class="org.curlybraces.synapse.InjectMessage">
+    <mapping name="inject-message" class="org.curlybraces.synapse.InjectMessage"
+                         extends="org.curlybraces.synapse.Command">
         <structure field="message" type="org.curlybraces.synapse.Message"/>
     </mapping>
-    <mapping name="callback" class="org.curlybraces.synapse.Callback">
+    <mapping name="callback" class="org.curlybraces.synapse.GoTo"
+                         extends="org.curlybraces.synapse.Command">
         <value name="url" field="url" />
-        <!--deserializer="org.curlybraces.synapse.JiBX.newURL"/> -->
     </mapping>
-    <mapping name="execute-callback" class="org.curlybraces.synapse.ExecuteCallback">
+    <mapping name="execute-callback" class="org.curlybraces.synapse.ExecuteCallback"
+                         extends="org.curlybraces.synapse.Command">
         <value name="callback-id" field="callbackId" deserializer="java.util.UUID.fromString"/>
+    </mapping>
+    <mapping name="execute-token-callback" class="org.curlybraces.synapse.ExecuteTokenCallback"
+                         extends="org.curlybraces.synapse.Command">
+        <value name="callback-id" field="callbackId" deserializer="java.util.UUID.fromString"/>
+        <collection field="tokens">
+            <structure type="org.curlybraces.synapse.Token"/>
+        </collection>
+    </mapping>
+    <mapping name="execute-message-callback" class="org.curlybraces.synapse.ExecuteMessageCallback"
+                         extends="org.curlybraces.synapse.Command">
+        <value name="callback-id" field="callbackId" deserializer="java.util.UUID.fromString"/>
+        <structure field="message" type="org.curlybraces.synapse.Message"/>
+    </mapping>
+    <mapping name="execute-profile-callback" class="org.curlybraces.synapse.ExecuteProfileCallback"
+                         extends="org.curlybraces.synapse.Command">
+        <value name="callback-id" field="callbackId" deserializer="java.util.UUID.fromString"/>
+        <structure field="profile" type="org.curlybraces.synapse.Profile"/>
     </mapping>
     <mapping name="verification" class="org.curlybraces.synapse.Verification">
     	<value name="message" field="message"/>

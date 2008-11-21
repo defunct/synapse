@@ -28,4 +28,8 @@ public class NodeListener
     public void update(Message message)
     {
     }
+    
+    public void found(MatchAll search, Message message, Profile profile)
+    {
+    }
 }

@@ -37,7 +37,7 @@ public class Message
         this.profileId = profileId;
     }
     
-    public void setPersonId(String profileId)
+    public void setProfileId(String profileId)
     {
         setProfileId(UUID.fromString(profileId));
     }

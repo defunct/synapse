@@ -8,8 +8,9 @@ public class InjectProfile extends Command
     {
     }
     
-    public InjectProfile(Profile profile)
+    public InjectProfile(Stamp stamp, Profile profile)
     {
+        super(stamp);
         this.profile = profile;
     }
     

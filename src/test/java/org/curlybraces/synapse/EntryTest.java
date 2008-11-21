@@ -26,7 +26,7 @@ public class EntryTest
     @Test public void entry()
     {
         int id = 0;
-        Entry entry = new Entry("word", Token.KEYWORD);
+        Entry entry = new Entry(new Term("word", Term.KEYWORD));
         for (int i = 0; i < 256; i++)
         {
             entry.add(getDate(i), getId(id++));

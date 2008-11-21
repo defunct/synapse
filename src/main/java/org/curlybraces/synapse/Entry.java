@@ -10,18 +10,15 @@ public class Entry
 {
     private int size;
     
-    private final String word;
-    
-    private final short type;
+    private final Term term;
     
     private final long[] dates;
     
     private final long[] messageIds;
     
-    public Entry(String word, short type)
+    public Entry(Term term)
     {
-        this.word = word;
-        this.type = type;
+        this.term = term;
         this.dates = new long[1024];
         this.messageIds = new long[1024 * 2];
     }
@@ -108,12 +105,38 @@ public class Entry
         for (int i = index; i < size && dates[i] == time; i++)
         {
             Token token = new Token();
-            token.setWord(word);
-            token.setType(type);
+            token.setTerm(term);
             token.setDate(date);
             token.setMessageId(new UUID(messageIds[i * 2], messageIds[i * 2 + 1]));
             tokens.add(token);
         }
         return tokens;
+    }
+    
+    public boolean atOrBefore(Date date, List<Token> listOfTokens)
+    {
+        int index = search(date);
+        if (index == 0)
+        {
+            return false;
+        }
+        if (index < 0)
+        {
+            index = -(index + 1);
+        }
+        if (index == size || dates[index] != date.getTime())
+        {
+            index--;
+        }
+        long time = dates[index];
+        for (int i = index; i > 0 && dates[i] == time; i--)
+        {
+            Token token = new Token();
+            token.setTerm(term);
+            token.setDate(new Date(dates[i]));
+            token.setMessageId(new UUID(messageIds[i * 2], messageIds[i * 2 + 1]));
+            listOfTokens.add(token);
+        }
+        return true;
     }
 }

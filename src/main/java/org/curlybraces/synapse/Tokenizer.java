@@ -12,8 +12,7 @@ public class Tokenizer
         Token user = new Token();
         user.setMessageId(message.getId());
         user.setDate(message.getDate());
-        user.setType(Token.USER);
-        user.setWord(message.getProfileId().toString());
+        user.setTerm(new Term(message.getProfileId().toString(), Term.USER));
         
         terms.add(user);
         
@@ -28,8 +27,7 @@ public class Tokenizer
 
             token.setMessageId(message.getId());
             token.setDate(message.getDate());
-            token.setType(Token.KEYWORD);
-            token.setWord(word);
+            token.setTerm(new Term(word, Term.KEYWORD));
             
             terms.add(token);
         }

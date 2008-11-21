@@ -1,8 +1,5 @@
 package org.curlybraces.synapse;
 
-import java.util.Date;
-import java.util.UUID;
-
 public class Echo extends Command
 {
     private String message;
@@ -11,9 +8,9 @@ public class Echo extends Command
     {
     }
 
-    public Echo(String message)
+    public Echo(Stamp stamp, String message)
     {
-        super(UUID.randomUUID(), new Date());
+        super(stamp);
         this.message = message;
     }
 

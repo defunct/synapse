@@ -13,23 +13,25 @@ public class TokenizerTest
 
     private final static Date DATE = new Date(1226453280480L);
 
+    private final static String PERSON_ID = "4d7101d0-ccdf-4599-8132-4fb81158ace3";
+
     @Test public void tokenize()
     {
-        Message missive = new Message();
+        Message message = new Message();
         
-        missive.setId(ID);
-        missive.setDate(DATE);
-        missive.setText("This is a test.");
-        missive.setPersonId(ID);
+        message.setId(ID);
+        message.setDate(DATE);
+        message.setText("This is a test.");
+        message.setProfileId(PERSON_ID);
         
         Tokenizer tokenizer = new Tokenizer();
-        List<Token> terms = tokenizer.tokenize(missive);
+        List<Token> tokens = tokenizer.tokenize(message);
         
-        assertEquals(terms.size(), 5);
-        assertEquals(terms.get(0).getWord(), ID.toString());
-        assertEquals(terms.get(1).getWord(), "this");
-        assertEquals(terms.get(2).getWord(), "is");
-        assertEquals(terms.get(3).getWord(), "a");
-        assertEquals(terms.get(4).getWord(), "test");
+        assertEquals(tokens.size(), 5);
+        assertEquals(tokens.get(0).getTerm().getWord(), PERSON_ID.toString());
+        assertEquals(tokens.get(1).getTerm().getWord(), "this");
+        assertEquals(tokens.get(2).getTerm().getWord(), "is");
+        assertEquals(tokens.get(3).getTerm().getWord(), "a");
+        assertEquals(tokens.get(4).getTerm().getWord(), "test");
     }
 }

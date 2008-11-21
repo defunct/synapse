@@ -24,7 +24,7 @@ public class MissiveTest
         missive.setId(ID);
         missive.setDate(DATE);
         missive.setText("This is a test.");
-        missive.setPersonId(PERSON_ID);
+        missive.setProfileId(PERSON_ID);
         
         assertEquals(missive.getId().toString(), ID);
         assertEquals(missive.getDate(), DATE);
