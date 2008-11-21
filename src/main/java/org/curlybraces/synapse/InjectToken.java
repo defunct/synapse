@@ -14,7 +14,7 @@ public class InjectToken extends Command
     }
     
     @Override
-    public void execute(Node node, Synapse synapse)
+    public void execute(Node node, SynapseQueue queue, Synapse synapse)
     {
         String term = token.toTerm();
         Dictionary dictionary = node.getDictionary();
@@ -26,5 +26,6 @@ public class InjectToken extends Command
             volume.put(term, entry);
         }
         entry.add(token.getDate(), token.getMessageId());
+        queue.enqueue(synapse);
     }
 }

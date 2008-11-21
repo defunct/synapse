@@ -17,7 +17,7 @@ public class Echo extends Command
         this.message = message;
     }
 
-    public void execute(Node node, Synapse synapse)
+    public void execute(Node node, SynapseQueue queue, Synapse synapse)
     {
         System.out.println(message);
     }

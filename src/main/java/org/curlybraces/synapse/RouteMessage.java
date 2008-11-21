@@ -22,7 +22,7 @@ public class RouteMessage extends Command
     }
 
     @Override
-    public void execute(Node node, Synapse synapse)
+    public void execute(Node node, SynapseQueue queue, Synapse synapse)
     {
         Network<UUID> messages = node.getMessageNetwork();
         Router<UUID> router = messages.get(messages.getRootId());
@@ -31,6 +31,6 @@ public class RouteMessage extends Command
         {
             synapse.shift(new RouteMessage(messageId));
         }
-        node.sendCommand(route.get(synapse), synapse);
+        queue.enqueue(route.get(synapse), synapse);
     }
 }

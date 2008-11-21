@@ -3,7 +3,7 @@ package org.curlybraces.synapse;
 public class Discover extends Command
 {
     @Override
-    public void execute(Node node, Synapse synapse)
+    public void execute(Node node, SynapseQueue queue, Synapse synapse)
     {
     }
 }

@@ -8,15 +8,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-import java.util.concurrent.LinkedBlockingQueue;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class Node
 {
-    private final Logger logger = LoggerFactory.getLogger(Node.class);
-    
     public final UUID MIN_UUID = new UUID(Long.MIN_VALUE, Long.MIN_VALUE);
     
     public final UUID MAX_UUID = new UUID(Long.MAX_VALUE, Long.MAX_VALUE);
@@ -33,8 +27,6 @@ public class Node
 
     private final LinkedList<UUID> calledback;
 
-    private final LinkedBlockingQueue<Task> envelopes;
-
     private final Network<String> tokenNetwork;
     
     /** The message network. */
@@ -46,8 +38,6 @@ public class Node
     private final Network<UUID> profileNetwork;
     
     private final Storage<Profile> profileStorage;
-
-    private Thread mailman;
 
     private URL url;
 
@@ -81,7 +71,6 @@ public class Node
         this.listOfListeners = new ArrayList<NodeListener>();
         this.callbacks = new HashMap<UUID, Runnable>();
         this.calledback = new LinkedList<UUID>();
-        this.envelopes = new LinkedBlockingQueue<Task>();
 
         this.tokenNetwork = tokenNetwork;
         this.dictionary = dictionary;
@@ -91,40 +80,6 @@ public class Node
         
         this.profileNetwork = profileNetwork;
         this.profileStorage = profileStorage;
-    }
-
-    public void start()
-    {
-        mailman = new Thread(new Runnable()
-        {
-            public void run()
-            {
-                logger.debug("Starting mailman thread.");
-                
-                while (actuallySendCommand())
-                {
-                }
-
-                logger.debug("Stopping mailman thread.");
-            }
-        });
-        mailman.start();
-    }
-    
-    public void stop()
-    {
-        try
-        {
-            envelopes.put(new TerminalTask());
-        }
-        catch (InterruptedException e)
-        {
-        }
-    }
-    
-    public void join() throws InterruptedException
-    {
-        mailman.join();
     }
 
     public UUID getId()
@@ -143,6 +98,11 @@ public class Node
     public URL getURL()
     {
         return url;
+    }
+    
+    public void execute(Synapse synapse)
+    {
+        new NodeExecutor(this, synapse).execute();
     }
 
     public Dictionary getDictionary()
@@ -279,33 +239,5 @@ public class Node
             calledback.addLast(callbackId);
             runnable.run();
         }
-    }
-
-    public void sendCommand(URL url, Synapse synapse)
-    {
-        try
-        {
-            envelopes.put(new EnvelopeSendTask(new Envelope(url, synapse)));
-        }
-        catch (InterruptedException e)
-        {
-        }
-    }
-
-    public boolean actuallySendCommand()
-    {
-        try
-        {
-            Task task = envelopes.take();
-            if (task.isTerminal())
-            {
-                return false;
-            }
-            task.perform();
-        }
-        catch (InterruptedException e)
-        {
-        }
-        return true;
     }
 }

@@ -15,7 +15,7 @@ public class RouteToken extends Command
     }
     
     @Override
-    public void execute(Node node, Synapse synapse)
+    public void execute(Node node, SynapseQueue queue, Synapse synapse)
     {
         Network<String> tokenNetwork = node.getTokenNetwork();
         Router<String> router = tokenNetwork.get(tokenNetwork.getRootId());
@@ -24,6 +24,6 @@ public class RouteToken extends Command
         {
             synapse.shift(new RouteToken(term));
         }
-        node.sendCommand(route.get(synapse), synapse);
+        queue.enqueue(route.get(synapse), synapse);
     }
 }

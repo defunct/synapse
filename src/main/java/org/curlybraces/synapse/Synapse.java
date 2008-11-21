@@ -52,15 +52,11 @@ public class Synapse
         }
     }
     
-    public void execute(Node node)
+    public void execute(Node node, SynapseQueue queue)
     {
         Command command = commands.removeFirst();
-        command.execute(node, this);
+        command.execute(node, queue, this);
         executed.add(command);
         visited.add(node.getURL());
-        if (command.isTerminal() && commands.size() != 0)
-        {
-            node.sendCommand(node.getURL(), this);
-        }
     }
 }

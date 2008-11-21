@@ -74,5 +74,5 @@ public abstract class Command
     {
     }
 
-    public abstract void execute(Node node, Synapse synapse);
+    public abstract void execute(Node node, SynapseQueue queue, Synapse synapse);
 }

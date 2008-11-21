@@ -14,7 +14,7 @@ public class InjectProfile extends Command
     }
     
     @Override
-    public void execute(Node node, Synapse synapse)
+    public void execute(Node node, SynapseQueue queue, Synapse synapse)
     {
         Bin<Profile> bin = node.getProfileStorage().get(profile.getId());
         if (bin == null)
@@ -25,5 +25,6 @@ public class InjectProfile extends Command
         {
             bin.put(profile.getId(), profile);
         }
+        queue.enqueue(synapse);
     }
 }

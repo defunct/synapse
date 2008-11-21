@@ -25,6 +25,9 @@ public class JettyHandlerTest
 
         Node node = new Node();
         
+        URL url = URI.create("http://localhost:8888/synapse").toURL();
+        node.setURL(url);
+        
         server.addHandler(new SynapseJettyHandler(node));
         server.start();
     }
@@ -32,10 +35,10 @@ public class JettyHandlerTest
     
     @Test public void test() throws Exception 
     {
-        URL url = URI.create("http://localhost:888/synapse").toURL();
+        URL url = URI.create("http://localhost:8888/synapse").toURL();
         Synapse synapse = new Synapse(new Echo("Hello, World!"));
         
-        new Envelope(url, synapse);
+        new Envelope(url, synapse).send();
         
         Thread.sleep(2000);
     }

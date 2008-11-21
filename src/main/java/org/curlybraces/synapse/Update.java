@@ -29,10 +29,12 @@ public class Update extends Command
      * 
      * @param node
      *            The node in the network.
+     * @param queue
+     *            A queue of synapses to be executed as part of this request.
      * @param synapse
      *            The currently firing synapse.
      */
-    public void execute(final Node node, Synapse synapse)
+    public void execute(final Node node, SynapseQueue queue, Synapse synapse)
     {
         Archive archive = node.getArchive(message.getProfileId());
         if (archive != null)
@@ -51,7 +53,7 @@ public class Update extends Command
                                          new InjectToken(token),
                                          new Callback(node.getURL()),
                                          new ExecuteCallback(callbackId));
-            node.sendCommand(node.getURL(), inject);
+            queue.enqueue(inject);
         }
         
         UUID callbackId = node.newCallback(new UpdateCallback(listener));
@@ -59,6 +61,6 @@ public class Update extends Command
                                      new InjectMessage(message),
                                      new Callback(node.getURL()),
                                      new ExecuteCallback(callbackId));
-        node.sendCommand(node.getURL(), inject);
+        queue.enqueue(inject);
     }
 }

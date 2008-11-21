@@ -1,5 +1,7 @@
 package org.curlybraces.synapse;
 
+import java.util.LinkedList;
+
 public class NodeExecutor implements Executor
 {
     private final Node node;
@@ -14,6 +16,12 @@ public class NodeExecutor implements Executor
 
     public void execute()
     {
-        synapse.execute(node);
+        LinkedList<Executor> listOfExecutors = new LinkedList<Executor>();
+        SynapseQueue queue = new SynapseQueue(node, listOfExecutors);
+        queue.enqueue(synapse);
+        while (listOfExecutors.size() != 0)
+        {
+            listOfExecutors.removeFirst().execute();
+        }
     }
 }

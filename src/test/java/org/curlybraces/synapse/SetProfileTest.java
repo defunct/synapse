@@ -33,7 +33,6 @@ public class SetProfileTest
         node = new Node();
 
         node.setURL(new URL("http", "localhost", 8888, "/synapse"));
-        node.start();
 
         server.addHandler(new SynapseJettyHandler(node));
         server.start();
@@ -64,7 +63,7 @@ public class SetProfileTest
             }
         });
         
-        node.sendCommand(node.getURL(), new Synapse(setProfile));
+        new Envelope(node.getURL(), new Synapse(setProfile)).send();
         
         String done = queue.take();
         assertEquals(done, "done");
@@ -74,9 +73,6 @@ public class SetProfileTest
     public void stopJetty() throws Exception
     {
         server.stop();
-        node.stop();
-
         server.join();
-        node.join();
     }
 }

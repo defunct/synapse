@@ -15,7 +15,7 @@ extends Command
     }
     
     @Override
-    public void execute(Node node, Synapse synapse)
+    public void execute(Node node, SynapseQueue queue, Synapse synapse)
     {
         Bin<Message> bin = node.getMessageStorage().get(message.getId());
         if (bin == null)
@@ -26,5 +26,6 @@ extends Command
         {
             bin.put(message.getId(), message);
         }
+        queue.enqueue(synapse);
     }
 }

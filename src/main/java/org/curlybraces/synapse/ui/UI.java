@@ -5,8 +5,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.Date;
 import java.util.UUID;
 
@@ -16,12 +14,12 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 
-import org.curlybraces.synapse.Envelope;
 import org.curlybraces.synapse.Message;
 import org.curlybraces.synapse.Node;
+import org.curlybraces.synapse.NodeExecutor;
+import org.curlybraces.synapse.NodeListener;
 import org.curlybraces.synapse.Synapse;
 import org.curlybraces.synapse.SynapseJettyHandler;
-import org.curlybraces.synapse.NodeListener;
 import org.curlybraces.synapse.Update;
 import org.mortbay.jetty.Connector;
 import org.mortbay.jetty.Server;
@@ -46,7 +44,7 @@ public class UI
             System.setProperty("apple.laf.useScreenMenuBar", "true");
         }
 
-        Node node = new Node();
+        final Node node = new Node();
         
         final Server server = new Server();
         SocketConnector connector = new SocketConnector();
@@ -91,13 +89,7 @@ public class UI
                 
                 Update update = new Update(missive);
                 Synapse synapse = new Synapse(update);
-                try
-                {
-                    new Envelope(new URL("http", "localhost", 8888, "/synapse"), synapse).send();
-                }
-                catch (MalformedURLException e)
-                {
-                }
+                new NodeExecutor(node, synapse).execute();
             }
         });
         
