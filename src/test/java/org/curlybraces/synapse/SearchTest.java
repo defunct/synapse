@@ -31,14 +31,19 @@ public class SearchTest
     {
         return new Date(DATE.getTime() + inc * 60000);
     }
+    
+    public Contributor newContributor() throws MalformedURLException
+    {
+        Node node = new Node();
+        node.setURL(new URL("http://localhost:8888/snapse"));
+        return node;
+    }
 
     @Test
     public void search() throws MalformedURLException
     {
-        Node node = new Node();
-        
-        node.setURL(new URL("http://localhost:8888/snapse"));
-            
+        Contributor contributor = newContributor();
+                    
         NatoAlphabet alphabet = new NatoAlphabet();
 
         Random random = new Random(1L);
@@ -86,7 +91,7 @@ public class SearchTest
                     message.setDate(getDate(date++));
                     message.setText(newString.toString());
 
-                    node.update(message);
+                    contributor.update(message);
 
                     count--;
                 }
@@ -99,7 +104,7 @@ public class SearchTest
             message.setDate(getDate(date++));
             message.setText("alpha beta charlie");
 
-            node.update(message);
+            contributor.update(message);
         }
 
         MatchAll all = new MatchAll();
@@ -118,7 +123,7 @@ public class SearchTest
         
         final BlockingQueue<String> queue = new LinkedBlockingQueue<String>();
 
-        node.search(all, new NodeListener()
+        contributor.search(all, new NodeListener()
         {
             public void found(MatchAll search, Message message, Profile profile)
             {

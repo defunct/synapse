@@ -10,8 +10,9 @@ public class SetProfile extends Command
     {
     }
     
-    public SetProfile(Profile profile)
+    public SetProfile(Stamp stamp, Profile profile)
     {
+        super(stamp);
         this.profile = profile;
     }
     

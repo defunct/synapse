@@ -7,7 +7,7 @@ import java.util.UUID;
 
 import org.testng.annotations.Test;
 
-public class MissiveTest
+public class MessageTest
 {
     private final static String ID = "7b2fb945-c913-48aa-ad25-346e27c2064b";
     
@@ -17,18 +17,18 @@ public class MissiveTest
     
     @Test public void setters()
     {
-        Message missive = new Message();
+        Message message = new Message();
         
         System.out.println(UUID.randomUUID());
         
-        missive.setId(ID);
-        missive.setDate(DATE);
-        missive.setText("This is a test.");
-        missive.setProfileId(PERSON_ID);
+        message.setId(ID);
+        message.setDate(DATE);
+        message.setText("This is a test.");
+        message.setProfileId(PERSON_ID);
         
-        assertEquals(missive.getId().toString(), ID);
-        assertEquals(missive.getDate(), DATE);
-        assertEquals(missive.getText(), "This is a test.");
-        assertEquals(missive.getProfileId().toString(), PERSON_ID);
+        assertEquals(message.getId().toString(), ID);
+        assertEquals(message.getDate(), DATE);
+        assertEquals(message.getText(), "This is a test.");
+        assertEquals(message.getProfileId().toString(), PERSON_ID);
     }
 }

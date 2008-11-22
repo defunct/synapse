@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-public class Node
+public class Node implements Contributor
 {
     public final UUID MIN_UUID = new UUID(Long.MIN_VALUE, Long.MIN_VALUE);
     
@@ -117,9 +117,9 @@ public class Node
         return url;
     }
     
-    public void execute(Synapse synapse)
+    public void setProfile(Profile profile)
     {
-        new NodeExecutor(this, synapse).execute();
+        new NodeExecutor(this, new Synapse(new SetProfile(newStamp(), profile))).execute();
     }
     
     public void update(Message message)

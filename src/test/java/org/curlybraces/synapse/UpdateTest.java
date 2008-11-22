@@ -2,15 +2,11 @@ package org.curlybraces.synapse;
 
 import static org.testng.Assert.assertEquals;
 
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Date;
 import java.util.concurrent.LinkedBlockingQueue;
 
-import org.mortbay.jetty.Connector;
-import org.mortbay.jetty.Server;
-import org.mortbay.jetty.nio.SelectChannelConnector;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 public class UpdateTest
@@ -21,38 +17,27 @@ public class UpdateTest
 
     private final static String PERSON_ID = "4d7101d0-ccdf-4599-8132-4fb81158ace3";
 
-    private final Server server = new Server();
-    
-    private Node node;
-
-    @BeforeMethod public void startJetty() throws Exception
+    private Contributor newContributor() throws MalformedURLException
     {
-        SelectChannelConnector connector = new SelectChannelConnector();
-        // Set some timeout options to make debugging easier.
-        connector.setMaxIdleTime(1000 * 60 * 60);
-        connector.setSoLingerTime(-1);
-        connector.setPort(8888);
-        server.setConnectors(new Connector[] { connector });
-        node = new Node();
-
-        node.setURL(new URL("http", "localhost", 8888, "/synapse"));
-        
-        server.addHandler(new SynapseJettyHandler(node));
-        server.start();
+        Node node = new Node();
+        node.setURL(new URL("http://localhost:8888/synapse"));
+        return node;
     }
     
     @Test public void update() throws Exception
     {
-        Message missive = new Message();
+        Contributor contributor = newContributor();
         
-        missive.setId(ID);
-        missive.setDate(DATE);
-        missive.setProfileId(PERSON_ID);
-        missive.setText("This is a test.");
+        Message message = new Message();
+        
+        message.setId(ID);
+        message.setDate(DATE);
+        message.setProfileId(PERSON_ID);
+        message.setText("This is a test.");
         
         final LinkedBlockingQueue<String> queue = new LinkedBlockingQueue<String>();
         
-        node.addListener(new NodeListener()
+        contributor.addListener(new NodeListener()
         {
             @Override
             public void update(Message missive)
@@ -67,15 +52,9 @@ public class UpdateTest
             }
         });
 
-        new Envelope(node.getURL(), new Synapse(new Update(node.newStamp(), missive))).send();
+        contributor.update(message);
 
         String done = queue.take();
         assertEquals(done, "done");
-    }
-    
-    @AfterMethod public void stopJetty() throws Exception
-    {
-        server.stop();
-        server.join();
     }
 }
