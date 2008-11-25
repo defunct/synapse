@@ -1,5 +1,6 @@
 package org.curlybraces.synapse;
 
+import java.util.Collections;
 import java.util.SortedMap;
 import java.util.TreeMap;
 import java.util.UUID;
@@ -31,7 +32,7 @@ public class Router<K extends Comparable<K>>
     public Router(UUID id)
     {
         this.id = id;
-        this.mapOfRoutes = new TreeMap<K, Route>(new Reverse<K>());
+        this.mapOfRoutes = new TreeMap<K, Route>(Collections.reverseOrder());
     }
 
     /**

@@ -1,6 +1,7 @@
 package org.curlybraces.synapse;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -40,7 +41,7 @@ public class MergeAll
         Set<Set<Term>> setOfSetsOfTerms = search.getTerms();
         for (Set<Term> setOfTerms : setOfSetsOfTerms)
         {
-            SortedMap<MergeKey, Token> mapOfTokens = new TreeMap<MergeKey, Token>(new Reverse<MergeKey>());
+            SortedMap<MergeKey, Token> mapOfTokens = new TreeMap<MergeKey, Token>(Collections.reverseOrder());
             mapOfMapsOfTokens.put(setOfTerms, mapOfTokens);
         }
         

@@ -1,5 +1,6 @@
 package org.curlybraces.synapse;
 
+import java.util.Collections;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
@@ -9,7 +10,7 @@ public class Dictionary
     
     public Dictionary()
     {
-        this.mapOfVolumes = new TreeMap<Term, Volume>(new Reverse<Term>());
+        this.mapOfVolumes = new TreeMap<Term, Volume>(Collections.reverseOrder());
     }
     
     public void create(Term min, Term max)

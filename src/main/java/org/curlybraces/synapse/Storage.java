@@ -1,5 +1,6 @@
 package org.curlybraces.synapse;
 
+import java.util.Collections;
 import java.util.SortedMap;
 import java.util.TreeMap;
 import java.util.UUID;
@@ -10,7 +11,7 @@ public class Storage<T>
     
     public Storage()
     {
-        this.mapOfBins = new TreeMap<UUID, Bin<T>>(new Reverse<UUID>());
+        this.mapOfBins = new TreeMap<UUID, Bin<T>>(Collections.reverseOrder());
     }
     
     public void create(UUID min, UUID max)
