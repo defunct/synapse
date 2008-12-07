@@ -4,6 +4,11 @@ import java.util.Collections;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
+/**
+ * Manages a collection of volumes within a node.
+ * 
+ * @author Alan Gutierrez
+ */
 public class Dictionary
 {
     private final SortedMap<Term, Volume> mapOfVolumes;

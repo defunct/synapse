@@ -4,6 +4,13 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+/**
+ * <p>
+ * Archive manages term entry skip list.
+ * </p>
+ * 
+ * @author Alan Gutierrez
+ */
 public class Archive
 {
     private final UUID personId;

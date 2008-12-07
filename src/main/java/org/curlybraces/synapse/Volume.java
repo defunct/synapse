@@ -3,6 +3,33 @@ package org.curlybraces.synapse;
 import java.util.Map;
 import java.util.TreeMap;
 
+/**
+ * A replicable collection of terms.
+ * <p>
+ * A volume can mirror itself. The mirror it tighly knit in that all of the
+ * mirrors are aware of each other's existence. If there is a split in the
+ * volume, all the mirrors are notified of the split.
+ * </p>
+ * <p>
+ * A volume is the end point for an entry. Entries are gathered, mirrors are not
+ * notified for each injected term. Instead, after a period of time has passed,
+ * the terms are put into historical entries, shuffled back into the entry skip
+ * list. Parent is notified of alternates after split like a router.
+ * </p>
+ * <p>
+ * In a search, if a node is receiving an entry once a second, after twenty
+ * seconds, it will tell twenty seconds ago in the skip list about these. Twenty
+ * seconds ago in the skip list, will tell three minutes ago. Provided no one is
+ * injecting a lot of stuff into a year ago, the skip list is going to build new
+ * and go old, not adjust much.
+ * </p>
+ * <p>
+ * What if someone is pouring terms into a year ago? Maybe that is not allowed.
+ * Maybe it needs to be authorized. How do skip lists grow? 
+ * </p>
+ * 
+ * @author Alan Gutierrez
+ */
 public class Volume
 {
     private final Map<Term, Entry> mapOfEntries;
