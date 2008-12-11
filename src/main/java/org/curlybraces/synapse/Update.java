@@ -35,12 +35,6 @@ public class Update extends Command
      */
     public void execute(final Node node, SynapseQueue queue, Synapse synapse)
     {
-        Archive archive = node.getArchive(message.getProfileId());
-        if (archive != null)
-        {
-            archive.add(message);
-        }
-
         Tokenizer tokenizer = new Tokenizer();
         List<Token> tokens = tokenizer.tokenize(message); 
         
