@@ -4,16 +4,22 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+// TODO Document.
 public class MergeAny implements TokenCallback
 {
+    // TODO Document.
     private final Set<Term> setOfTerms;
     
+    // TODO Document.
     private final List<Token> listOfTokens;
 
+    // TODO Document.
     private final MergeAll all;
 
+    // TODO Document.
     private int count;
 
+    // TODO Document.
     public MergeAny(MergeAll all, Set<Term> setOfTerms)
     {
         this.setOfTerms = setOfTerms;
@@ -22,6 +28,7 @@ public class MergeAny implements TokenCallback
         this.listOfTokens = new ArrayList<Token>();
     }
 
+    // TODO Document.
     public void run(Token[] tokens)
     {
         if (count == 0)

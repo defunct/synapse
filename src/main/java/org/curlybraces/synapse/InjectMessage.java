@@ -1,20 +1,25 @@
 package org.curlybraces.synapse;
 
+// TODO Document.
 public class InjectMessage
 extends Command
 {
+    // TODO Document.
     private Message message;
     
+    // TODO Document.
     public InjectMessage()
     {
     }
     
+    // TODO Document.
     public InjectMessage(Stamp stamp, Message missive)
     {
         super(stamp);
         this.message = missive;
     }
     
+    // TODO Document.
     @Override
     public void execute(Node node, SynapseQueue queue, Synapse synapse)
     {

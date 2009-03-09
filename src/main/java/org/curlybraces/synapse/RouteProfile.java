@@ -2,20 +2,25 @@ package org.curlybraces.synapse;
 
 import java.util.UUID;
 
+// TODO Document.
 public class RouteProfile extends Command
 {
+    // TODO Document.
     private UUID profileId;
     
+    // TODO Document.
     public RouteProfile()
     {
     }
     
+    // TODO Document.
     public RouteProfile(Stamp stamp, UUID profileId)
     {
         super(stamp);
         this.profileId = profileId;
     }
     
+    // TODO Document.
     @Override
     public void execute(Node node, SynapseQueue queue, Synapse synapse)
     {

@@ -2,16 +2,21 @@ package org.curlybraces.synapse;
 
 import java.util.UUID;
 
+// TODO Document.
 public class ExecuteProfileCallback extends Command
 {
+    // TODO Document.
     private UUID callbackId;
     
+    // TODO Document.
     private Profile profile;
     
+    // TODO Document.
     public ExecuteProfileCallback()
     {
     }
     
+    // TODO Document.
     public ExecuteProfileCallback(Stamp stamp, UUID callbackId, Profile profile)
     {
         super(stamp);
@@ -19,6 +24,7 @@ public class ExecuteProfileCallback extends Command
         this.profile = profile;
     }
     
+    // TODO Document.
     @Override
     public void execute(Node node, SynapseQueue queue, Synapse synapse)
     {

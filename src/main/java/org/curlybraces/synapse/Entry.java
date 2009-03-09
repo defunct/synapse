@@ -6,16 +6,22 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+// TODO Document.
 public class Entry
 {
+    // TODO Document.
     private int size;
     
+    // TODO Document.
     private final Term term;
     
+    // TODO Document.
     private final long[] dates;
     
+    // TODO Document.
     private final long[] messageIds;
     
+    // TODO Document.
     public Entry(Term term)
     {
         this.term = term;
@@ -23,6 +29,7 @@ public class Entry
         this.messageIds = new long[1024 * 2];
     }
 
+    // TODO Document.
     private int search(Date date)
     {
         long time = date.getTime();
@@ -55,6 +62,7 @@ public class Entry
         return -(low + 1);
     }
     
+    // TODO Document.
     public int seek(int index, Date date, UUID messageId)
     {
         long time = date.getTime();
@@ -70,6 +78,7 @@ public class Entry
         return -1;
     }
     
+    // TODO Document.
     private void insert(int index, Date date, UUID messageId)
     {
         System.arraycopy(dates, index, dates, index + 1, size - index);
@@ -80,6 +89,7 @@ public class Entry
         size++;
     }
     
+    // TODO Document.
     public void add(Date date, UUID messageId)
     {
         int index = search(date);
@@ -93,6 +103,7 @@ public class Entry
         }
     }
     
+    // TODO Document.
     public List<Token> get(Date date)
     {
         int index = search(date);
@@ -113,6 +124,7 @@ public class Entry
         return tokens;
     }
     
+    // TODO Document.
     public boolean atOrBefore(Date date, List<Token> listOfTokens)
     {
         int index = search(date);

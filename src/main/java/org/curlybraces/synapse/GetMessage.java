@@ -3,18 +3,24 @@ package org.curlybraces.synapse;
 import java.net.URL;
 import java.util.UUID;
 
+// TODO Document.
 public class GetMessage extends Command
 {
+    // TODO Document.
     private UUID messageId;
     
+    // TODO Document.
     private URL from;
     
+    // TODO Document.
     private UUID callbackId;
     
+    // TODO Document.
     public GetMessage()
     {
     }
 
+    // TODO Document.
     public GetMessage(Stamp stamp, UUID messageId, URL from, UUID callbackId)
     {
         super(stamp);
@@ -23,6 +29,7 @@ public class GetMessage extends Command
         this.callbackId = callbackId;
     }
     
+    // TODO Document.
     @Override
     public void execute(Node node, SynapseQueue queue, Synapse synapse)
     {

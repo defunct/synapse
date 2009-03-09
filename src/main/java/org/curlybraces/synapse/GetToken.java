@@ -6,22 +6,30 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+// TODO Document.
 public class GetToken extends Command
 {
+    // TODO Document.
     private final static int RETURN_COUNT = 3;
    
+    // TODO Document.
     private UUID callbackId;
     
+    // TODO Document.
     private URL from;
     
+    // TODO Document.
     private Date atOrBefore;
     
+    // TODO Document.
     private Term term;
     
+    // TODO Document.
     public GetToken()
     {
     }
 
+    // TODO Document.
     public GetToken(Stamp stamp, Term term, Date atOrBefore, URL from, UUID callbackId)
     {
         super(stamp);
@@ -31,6 +39,7 @@ public class GetToken extends Command
         this.term = term;
     }
     
+    // TODO Document.
     @Override
     public void execute(Node node, SynapseQueue queue, Synapse synapse)
     {

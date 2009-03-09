@@ -15,20 +15,26 @@ import org.jibx.runtime.JiBXException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+// TODO Document.
 public class Envelope
 {
+    // TODO Document.
     private final Logger logger = LoggerFactory.getLogger(Envelope.class);
     
+    // TODO Document.
     private final URL url;
     
+    // TODO Document.
     private final Synapse synapse;
     
+    // TODO Document.
     public Envelope(URL url, Synapse synapse)
     {
         this.url = url;
         this.synapse = synapse;
     }
     
+    // TODO Document.
     public Receipt send()
     {
         try
@@ -49,6 +55,7 @@ public class Envelope
         }
     }
     
+    // TODO Document.
     private Receipt trySend() throws MalformedURLException, IOException, JiBXException
     {
         logger.debug("Sending synapse to {}.", url);

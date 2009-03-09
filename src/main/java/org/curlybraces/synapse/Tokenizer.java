@@ -3,8 +3,10 @@ package org.curlybraces.synapse;
 import java.util.ArrayList;
 import java.util.List;
 
+// TODO Document.
 public class Tokenizer
 {
+    // TODO Document.
     public List<Token> tokenize(Message message)
     {
         List<Token> terms = new ArrayList<Token>();

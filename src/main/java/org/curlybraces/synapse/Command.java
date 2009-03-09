@@ -37,6 +37,7 @@ public abstract class Command
         this.stamp = stamp;
     }
     
+    // TODO Document.
     public byte[] getSignatureArray()
     {
         ByteArrayOutputStream out = new ByteArrayOutputStream();
@@ -61,6 +62,7 @@ public abstract class Command
         return out.toByteArray();
     }
     
+    // TODO Document.
     protected void addToSignature(DataOutputStream data)
     {
     }

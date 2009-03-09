@@ -11,19 +11,23 @@ import java.util.TreeMap;
  */
 public class Dictionary
 {
+    // TODO Document.
     private final SortedMap<Term, Volume> mapOfVolumes;
     
+    // TODO Document.
     public Dictionary()
     {
         this.mapOfVolumes = new TreeMap<Term, Volume>(Collections.reverseOrder());
     }
     
+    // TODO Document.
     public void create(Term min, Term max)
     {
         Volume volume = new Volume(max);
         mapOfVolumes.put(min, volume);
     }
 
+    // TODO Document.
     public Volume get(Term term)
     {
         SortedMap<Term, Volume> tail = mapOfVolumes.tailMap(term);

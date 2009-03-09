@@ -9,28 +9,40 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+// TODO Document.
 public class Node implements Contributor
 {
+    // TODO Document.
     public final UUID MIN_UUID = new UUID(Long.MIN_VALUE, Long.MIN_VALUE);
     
+    // TODO Document.
     public final UUID MAX_UUID = new UUID(Long.MAX_VALUE, Long.MAX_VALUE);
     
+    // TODO Document.
     private final UUID id;
     
+    // TODO Document.
     private final Dictionary dictionary;
         
+    // TODO Document.
     private final Map<UUID, Archive> mapOfArchives;
 
+    // TODO Document.
     private final List<NodeListener> listOfListeners;
 
+    // TODO Document.
     private final CallbackMap<Runnable> voidCallbacks;
     
+    // TODO Document.
     private final CallbackMap<TokenCallback> tokenCallbacks;
     
+    // TODO Document.
     private final CallbackMap<MessageCallback> messageCallbacks;
     
+    // TODO Document.
     private final CallbackMap<ProfileCallback> profileCallbacks;
 
+    // TODO Document.
     private final Network<Term> tokenNetwork;
     
     /** The message network. */
@@ -39,12 +51,16 @@ public class Node implements Contributor
     /** The message storage. */
     private final Storage<Message> messageStorage;
     
+    // TODO Document.
     private final Network<UUID> profileNetwork;
     
+    // TODO Document.
     private final Storage<Profile> profileStorage;
 
+    // TODO Document.
     private URL url;
 
+    // TODO Document.
     public Node()
     {
         UUID id = UUID.randomUUID();
@@ -89,11 +105,13 @@ public class Node implements Contributor
         this.profileStorage = profileStorage;
     }
 
+    // TODO Document.
     public UUID getId()
     {
         return id;
     }
 
+    // TODO Document.
     public void setURL(URL url)
     {
         this.url = url;
@@ -102,41 +120,49 @@ public class Node implements Contributor
         getProfileNetwork().get(getProfileNetwork().getRootId()).get(MIN_UUID).add(url);
     }
     
+    // TODO Document.
     public UUID newUUID()
     {
         return UUID.randomUUID();
     }
     
+    // TODO Document.
     public Stamp newStamp()
     {
         return new Stamp(UUID.randomUUID(), new Date());
     }
 
+    // TODO Document.
     public URL getURL()
     {
         return url;
     }
     
+    // TODO Document.
     public void setProfile(Profile profile)
     {
         new NodeExecutor(this, new Synapse(new SetProfile(newStamp(), profile))).execute();
     }
     
+    // TODO Document.
     public void update(Message message)
     {
         new NodeExecutor(this, new Synapse(new Update(newStamp(), message))).execute();
     }
     
+    // TODO Document.
     public void search(MatchAll search, NodeListener listener)
     {
         new MergeAll(this, search, 3, listener).next();
     }
 
+    // TODO Document.
     public Dictionary getDictionary()
     {
         return dictionary;
     }
 
+    // TODO Document.
     public Archive getArchive(UUID profileId)
     {
         Archive archive = mapOfArchives.get(profileId);
@@ -178,11 +204,13 @@ public class Node implements Contributor
         return messageStorage;
     }
     
+    // TODO Document.
     public Network<UUID> getProfileNetwork()
     {
         return profileNetwork;
     }
     
+    // TODO Document.
     public Storage<Profile> getProfileStorage()
     {
         return profileStorage;
@@ -247,21 +275,25 @@ public class Node implements Contributor
         return copy;
     }
     
+    // TODO Document.
     public CallbackMap<Runnable> getVoidCallbacks()
     {
         return voidCallbacks;
     }
     
+    // TODO Document.
     public CallbackMap<TokenCallback> getTokenCallbacks()
     {
         return tokenCallbacks;
     }
     
+    // TODO Document.
     public CallbackMap<MessageCallback> getMessageCallbacks()
     {
         return messageCallbacks;
     }
     
+    // TODO Document.
     public CallbackMap<ProfileCallback> getProfileCallbacks()
     {
         return profileCallbacks;

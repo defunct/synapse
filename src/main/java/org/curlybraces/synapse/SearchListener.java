@@ -2,16 +2,22 @@ package org.curlybraces.synapse;
 
 import java.util.UUID;
 
+// TODO Document.
 public class SearchListener implements MessageCallback, ProfileCallback
 {
+    // TODO Document.
     private final NodeListener listener;
     
+    // TODO Document.
     private final Node node;
     
+    // TODO Document.
     private final MatchAll search;
     
+    // TODO Document.
     private Message message;
     
+    // TODO Document.
     public SearchListener(Node node, MatchAll search, NodeListener listener)
     {
         this.node = node;
@@ -19,6 +25,7 @@ public class SearchListener implements MessageCallback, ProfileCallback
         this.listener = listener;
     }
     
+    // TODO Document.
     private void notifyListeners(Profile profile)
     {
         this.listener.found(search, message, profile);
@@ -28,6 +35,7 @@ public class SearchListener implements MessageCallback, ProfileCallback
         }
     }
     
+    // TODO Document.
     public void run(Message message)
     {
         if (message == null)
@@ -47,6 +55,7 @@ public class SearchListener implements MessageCallback, ProfileCallback
         }
     }
     
+    // TODO Document.
     public void run(Profile profile)
     {
         notifyListeners(profile);

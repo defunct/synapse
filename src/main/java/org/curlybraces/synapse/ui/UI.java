@@ -25,16 +25,20 @@ import org.mortbay.jetty.Connector;
 import org.mortbay.jetty.Server;
 import org.mortbay.jetty.bio.SocketConnector;
 
+// TODO Document.
 public class UI
 {
+    // TODO Document.
     private final boolean isMac;
     
+    // TODO Document.
     public UI()
     {
         String os = System.getProperty("os.name").toLowerCase();
         this.isMac = os.startsWith("mac os x");
     }
     
+    // TODO Document.
     public void start() throws Exception
     {
         UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -116,6 +120,7 @@ public class UI
         frame.setVisible(true);
     }
     
+    // TODO Document.
     public static void main(String[] args) throws Exception
     {
         new UI().start();

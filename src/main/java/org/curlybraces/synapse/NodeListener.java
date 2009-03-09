@@ -29,6 +29,7 @@ public class NodeListener
     {
     }
     
+    // TODO Document.
     public void found(MatchAll search, Message message, Profile profile)
     {
     }

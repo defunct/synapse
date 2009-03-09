@@ -15,22 +15,28 @@ import org.jibx.runtime.JiBXException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+// TODO Document.
 public class SynapseService
 {
+    // TODO Document.
     private final Logger logger = LoggerFactory.getLogger(SynapseService.class);
 
+    // TODO Document.
     private final Node node;
 
+    // TODO Document.
     public SynapseService(Node node)
     {
         this.node = node;
     }
     
+    // TODO Document.
     public Node getNode()
     {
         return node;
     }
     
+    // TODO Document.
     public void post(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException
     {

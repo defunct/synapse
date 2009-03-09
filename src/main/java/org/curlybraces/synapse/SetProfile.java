@@ -2,20 +2,25 @@ package org.curlybraces.synapse;
 
 import java.util.UUID;
 
+// TODO Document.
 public class SetProfile extends Command
 {
+    // TODO Document.
     private Profile profile;
 
+    // TODO Document.
     public SetProfile()
     {
     }
     
+    // TODO Document.
     public SetProfile(Stamp stamp, Profile profile)
     {
         super(stamp);
         this.profile = profile;
     }
     
+    // TODO Document.
     @Override
     public void execute(Node node, SynapseQueue queue, Synapse synapse)
     {

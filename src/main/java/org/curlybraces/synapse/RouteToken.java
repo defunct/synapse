@@ -1,20 +1,24 @@
 package org.curlybraces.synapse;
 
-
+// TODO Document.
 public class RouteToken extends Command
 {
+    // TODO Document.
     private Term term;
     
+    // TODO Document.
     public RouteToken()
     {
     }
     
+    // TODO Document.
     public RouteToken(Stamp stamp, Term term)
     {
         super(stamp);
         this.term = term;
     }
     
+    // TODO Document.
     @Override
     public void execute(Node node, SynapseQueue queue, Synapse synapse)
     {

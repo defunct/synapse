@@ -13,26 +13,37 @@ import java.util.SortedMap;
 import java.util.TreeMap;
 import java.util.UUID;
 
+// TODO Document.
 public class MergeAll
 {
+    // TODO Document.
     private final MatchAll search;
     
+    // TODO Document.
     private final Node node;
     
+    // TODO Document.
     private final Set<Set<Term>> setOfSetsOfTerms;
     
+    // TODO Document.
     private final Map<Set<Term>, SortedMap<MergeKey, Token>> mapOfMapsOfTokens;
     
+    // TODO Document.
     private final NodeListener listener;
     
+    // TODO Document.
     private final int results;
     
+    // TODO Document.
     private int found;
     
+    // TODO Document.
     private MergeKey oldest;
 
+    // TODO Document.
     private int count;
     
+    // TODO Document.
     public MergeAll(Node node, MatchAll search, int results, NodeListener listener)
     {
         Map<Set<Term>, SortedMap<MergeKey, Token>> mapOfMapsOfTokens;
@@ -56,6 +67,7 @@ public class MergeAll
         this.oldest = new MergeKey(new Date(Long.MAX_VALUE));
     }
     
+    // TODO Document.
     public void next()
     {
         List<Set<Term>> listOfSetsOfTerms = new ArrayList<Set<Term>>();
@@ -85,6 +97,7 @@ public class MergeAll
         }
     }
     
+    // TODO Document.
     public void merge(Set<Term> setOfTerms, List<Token> listOfTokens)
     {
         if (listOfTokens.size() == 0)

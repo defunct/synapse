@@ -1,19 +1,24 @@
 package org.curlybraces.synapse;
 
+// TODO Document.
 public class InjectToken extends Command
 {
+    // TODO Document.
     private Token token;
     
+    // TODO Document.
     public InjectToken()
     {
     }
 
+    // TODO Document.
     public InjectToken(Stamp stamp, Token token)
     {
         super(stamp);
         this.token = token;
     }
     
+    // TODO Document.
     @Override
     public void execute(Node node, SynapseQueue queue, Synapse synapse)
     {

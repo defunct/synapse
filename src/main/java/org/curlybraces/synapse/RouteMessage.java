@@ -2,20 +2,25 @@ package org.curlybraces.synapse;
 
 import java.util.UUID;
 
+// TODO Document.
 public class RouteMessage extends Command
 {
+    // TODO Document.
     private UUID messageId;
     
+    // TODO Document.
     public RouteMessage()
     {
     }
     
+    // TODO Document.
     public RouteMessage(Stamp stamp, UUID messageId)
     {
         super(stamp);
         this.messageId = messageId;
     }
 
+    // TODO Document.
     @Override
     public void execute(Node node, SynapseQueue queue, Synapse synapse)
     {

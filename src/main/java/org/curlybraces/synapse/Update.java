@@ -3,14 +3,18 @@ package org.curlybraces.synapse;
 import java.util.List;
 import java.util.UUID;
 
+// TODO Document.
 public class Update extends Command
 {
+    // TODO Document.
     private Message message;
 
+    // TODO Document.
     public Update()
     {
     }
 
+    // TODO Document.
     public Update(Stamp stamp, Message message)
     {
         super(stamp);

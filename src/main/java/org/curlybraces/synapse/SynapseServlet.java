@@ -15,10 +15,13 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class SynapseServlet extends HttpServlet
 {
+    // TODO Document.
     private static final long serialVersionUID = 1L;
 
+    // TODO Document.
     private SynapseService service;
     
+    // TODO Document.
     @Override
     public void init(ServletConfig config) throws ServletException
     {
@@ -30,6 +33,7 @@ public class SynapseServlet extends HttpServlet
      * This servlet handles only the POST method by delegating the 
      * handling to the single {@link Node} instance for this servlet. 
      */
+    // TODO Document.
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException
