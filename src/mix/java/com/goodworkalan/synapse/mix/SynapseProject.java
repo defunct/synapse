@@ -10,7 +10,7 @@ public class SynapseProject extends ProjectModule {
     public void build(Builder builder) {
         builder
             .cookbook(JavaProject.class)
-                .produces(new Artifact("com.goodworkalan/ilk/0.1"))
+                .produces(new Artifact("com.goodworkalan/synapse/0.1"))
                 .main()
                     .depends()
                         .artifact(new Artifact("com.goodworkalan/litany/0.7"))
