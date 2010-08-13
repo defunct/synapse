@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0"
+    xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle"
+    xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>Synapse Changelog</title>
+    <link>http://www.prettyrobots.com/synapse/appcast.xml</link>
+    <description>Most recent changes with links to updates.</description>
+    <language>en</language>
+    <item>
+      <title>Version 0.0.5 (1 new feature)</title>
+      <sparkle:releaseNotesLink>
+        http://www.prettyrobots.com/synapse/release-notes/release-notes-0_0_5.html
+      </sparkle:releaseNotesLink>
+      <pubDate>Wed, 11 Aug 2010 23:19:00 -0500</pubDate>
+      <enclosure url="http://www.prettyrobots.com/releases/Synapse 0.0.5.dmg"
+        sparkle:version="0.0.5"
+        sparkle:dsaSignature="MCwCFCySt5XU8bnL/PPC9957gp+XGiI4AhQVUdOAaGCsdtxHjNVBXTFv+2aQFw=="
+        length="2636395"
+        type="application/octet-stream" />
+    </item>
+    <item>
+      <title>Version 0.0.4 (1 new feature)</title>
+      <sparkle:releaseNotesLink>
+        http://www.prettyrobots.com/synapse/release-notes/release-notes-0_0_4.html
+      </sparkle:releaseNotesLink>
+      <pubDate>Wed, 11 Aug 2010 12:20:11 +0000</pubDate>
+      <enclosure url="http://www.prettyrobots.com/releases/Synapse 0.0.4.dmg"
+        sparkle:version="0.0.4"
+        sparkle:dsaSignature="MC0CFQCZigUIfww1NEZyV2tI1KwXtwzvSgIUEZZwrH++cin00/WLUdcx8Ct+K6Y="
+        length="2649476"
+        type="application/octet-stream" />
+    </item>
+    <item>
+      <title>Version 0.0.3 (1 new feature)</title>
+      <sparkle:releaseNotesLink>
+        http://www.prettyrobots.com/synapse/release-notes/release-notes-0_0_3.html
+      </sparkle:releaseNotesLink>
+      <pubDate>Wed, 11 Aug 2010 12:20:11 +0000</pubDate>
+      <enclosure url="http://www.prettyrobots.com/releases/Synapse 0.0.3.dmg"
+        sparkle:version="0.0.3"
+        sparkle:dsaSignature="MC4CFQCG5Ty4GFdz/zBxbLH1kRUFntBrDgIVAI20KrLFit1swiq6RxOR+fp3k6Y7"
+        length="2649299"
+        type="application/octet-stream" />
+    </item>
+    <item>
+      <title>Version 0.0.2 (1 new feature)</title>
+      <sparkle:releaseNotesLink>
+        http://www.prettyrobots.com/synapse/release-notes/release-notes-0_0_2.html
+      </sparkle:releaseNotesLink>
+      <pubDate>Wed, 11 Aug 2010 12:20:11 +0000</pubDate>
+      <enclosure url="http://www.prettyrobots.com/releases/Synapse 0.0.2.dmg"
+        sparkle:version="0.0.2"
+        sparkle:dsaSignature="MC0CFEZUgfDmO0cjfyYRQh5f0bqSStonAhUApO/uDn7jSEOLCTnfHJIGP8LW0fw="
+        length="2653044"
+        type="application/octet-stream" />
+    </item>
+  </channel>
+</rss>
